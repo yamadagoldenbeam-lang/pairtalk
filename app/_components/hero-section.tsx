@@ -66,7 +66,6 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
       {/* 安心メッセージ - 刷新されたデザイン */}
       <div className="w-full max-w-3xl mx-auto mb-2 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
         <div className="bg-white/80 backdrop-blur-sm border border-cyan-100 rounded-2xl p-6 text-center shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-500" />
               <p className="text-slate-800 font-bold leading-relaxed text-base">
             AI読み込みなし、サーバー保存なし！<br />
             運営も見れない仕組みだから<br />

@@ -26,17 +26,35 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://writter-project.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://pairtalk.site"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "ペアトーク相性診断 for LINE",
     description: "LINEのトーク履歴を分析して、二人の関係性を診断します",
-    url: "/",
+    url: "https://pairtalk.site",
     siteName: "ペアトーク相性診断",
     locale: "ja_JP",
     type: "website",
+    images: [
+      {
+        url: "/talklens/20260125_main.png",
+        width: 1200,
+        height: 630,
+        alt: "ペアトーク相性診断",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ペアトーク相性診断 for LINE",
+    description: "LINEのトーク履歴を分析して、二人の関係性を診断します",
+    images: ["/talklens/20260125_main.png"],
+  },
+  icons: {
+    icon: "/talklens/icon.svg",
+    apple: "/talklens/apple-icon.png",
   },
   robots: {
     index: true,

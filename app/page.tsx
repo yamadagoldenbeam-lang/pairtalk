@@ -356,13 +356,9 @@ const CompatibilityTypesSection = () => {
               className="group relative bg-white rounded-2xl p-6 pt-20 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 border border-slate-100 overflow-visible"
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              {/* グラデーションアクセント */}
-              <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${type.gradient} rounded-t-2xl`} />
-              
               {/* キャラクター画像 - 中央配置 */}
               <div className="absolute -top-16 left-0 right-0 flex justify-center z-10">
                 <div className="relative w-40 h-40">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${type.gradient} rounded-full opacity-20 blur-xl group-hover:opacity-30 transition-opacity`} />
                   <div className="relative w-full h-full drop-shadow-xl transition-transform duration-300 group-hover:scale-110">
                     <img 
                       src="/talklens/20260125_main.png" 
