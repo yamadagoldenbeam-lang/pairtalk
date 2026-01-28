@@ -79,7 +79,7 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
         <img 
           src="/talklens/arrow.png" 
           alt="矢印" 
-          className="w-10 h-15 object-contain"
+          className="w-20 h-30 object-contain"
         />
       </div>
 

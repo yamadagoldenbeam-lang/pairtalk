@@ -140,6 +140,13 @@ export function Footer() {
             )}
           </div>
 
+          {/* Feature Images */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
+            <img src="/talklens/ft1.png" alt="Feature 1" className="h-12 object-contain" />
+            <img src="/talklens/ft2.png" alt="Feature 2" className="h-12 object-contain" />
+            <img src="/talklens/ft3.png" alt="Feature 3" className="h-12 object-contain" />
+          </div>
+
           {/* Copyright */}
           <div className="text-center mt-8 pt-6 border-t border-slate-200">
             <p className="text-xs text-muted-foreground">Copyright © 2026 GOLDENBEAM Inc. All Rights Reserved.</p>

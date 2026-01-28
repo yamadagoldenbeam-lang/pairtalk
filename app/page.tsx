@@ -2321,27 +2321,8 @@ export default function TalkLensPage() {
           </div>
           </FadeIn>
 
-          {/* 笑い分析 */}
-          <FadeIn delay={700}>
-          <div className="bg-feature-bg rounded-3xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
-            <h3 className="text-lg font-bold text-foreground mb-2">「笑」使用率</h3>
-            <p className="text-sm text-muted-foreground mb-4">笑い表現の使用頻度</p>
-            
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center justify-between py-2 border-t border-border/50">
-                <span className="text-muted-foreground">{results.laughterAnalysis.user1Name}</span>
-                <span className="font-bold text-green-600">{results.laughterAnalysis.user1.rate.toFixed(1)}%</span>
-              </div>
-              <div className="flex items-center justify-between py-2 border-t border-border/50">
-                <span className="text-muted-foreground">{results.laughterAnalysis.user2Name}</span>
-                <span className="font-bold text-green-600">{results.laughterAnalysis.user2.rate.toFixed(1)}%</span>
-              </div>
-            </div>
-          </div>
-          </FadeIn>
-
           {/* 通話記録 */}
-          <FadeIn delay={800}>
+          <FadeIn delay={700}>
           <div className="bg-feature-bg rounded-3xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="p-3 bg-primary/10 rounded-full">
