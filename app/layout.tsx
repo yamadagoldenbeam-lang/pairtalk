@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ペアトーク相性診断 for LINE",
-  description: "LINEのトーク履歴を分析して、二人の関係性を診断します",
+  description: "LINEのトーク履歴を分析して、二人の関係性をカンタン診断！",
   keywords: ["ペアトーク相性診断", "トーク相性診断", "LINE", "トーク分析", "会話分析", "相性診断", "Writter project"],
   authors: [{ name: "株式会社GOLDENBEAM" }],
   creator: "株式会社GOLDENBEAM",

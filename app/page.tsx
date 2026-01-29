@@ -18,6 +18,7 @@ import { useToast } from "./_hooks/use-toast";
 import { ArrowLeft, MessageCircle, Clock, Zap, Smile, BarChart3, TrendingUp, Trophy, Phone, Moon, Sun, Heart, Sparkles, Calendar, Loader2, Menu, X } from "lucide-react";
 import { cn } from "./_lib/utils";
 import { MascotIcon } from "./_components/mascot-icon";
+import { WritterLoginModal } from "./_components/writter-login-modal";
 
 interface Message {
   date: Date;
@@ -391,6 +392,7 @@ const CompatibilityTypesSection = () => {
 export default function TalkLensPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [results, setResults] = useState<AnalysisResult | null>(null);
+  const [isWritterModalOpen, setIsWritterModalOpen] = useState(false);
   const { toast } = useToast();
 
   // 通話時間を秒に変換するヘルパー（日英両対応）
@@ -1755,7 +1757,7 @@ export default function TalkLensPage() {
       }
       
       // 分析中の演出のために少し待機
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 300));
       
       const analysisResult = await analyzeMessages(messages);
       setResults(analysisResult);
@@ -2523,7 +2525,10 @@ export default function TalkLensPage() {
                       <h3 className="text-2xl font-black text-white drop-shadow-sm mb-2">限定バッジをゲット！</h3>
                       <p className="text-white/90 font-medium">Writterにログインしてアプリで使える<br/>限定バッジを入手しよう！</p>
                     </div>
-                    <Button className="w-full bg-white text-purple-600 hover:bg-white/90 font-bold text-lg h-12 rounded-xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
+                    <Button 
+                      onClick={() => setIsWritterModalOpen(true)}
+                      className="w-full bg-white text-purple-600 hover:bg-white/90 font-bold text-lg h-12 rounded-xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5"
+                    >
                       Writterにログイン
                     </Button>
                   </div>
@@ -2555,6 +2560,12 @@ export default function TalkLensPage() {
 
           <Footer />
         </div>
+
+        {/* Writterログインモーダル */}
+        <WritterLoginModal 
+          isOpen={isWritterModalOpen} 
+          onClose={() => setIsWritterModalOpen(false)} 
+        />
       </div>
     );
   }
@@ -2580,17 +2591,12 @@ export default function TalkLensPage() {
             className="bg-white rounded-3xl p-8 text-center shadow-sm border border-slate-100 transition-all hover:shadow-lg hover:-translate-y-1 group"
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500 text-white text-xs font-bold mb-6">
-              運営会社について知りたい！
+              運営会社はこちら
             </span>
-            <h3 className="text-xl font-bold text-slate-900 mb-6 group-hover:text-cyan-600 transition-colors">運営会社</h3>
-            <div className="h-20 flex items-center justify-center mb-6">
-              <span className="text-2xl font-black italic tracking-tighter text-slate-900">
-                GOLDEN<span className="text-cyan-500">BEAM</span>
-              </span>
+            <div className="w-full mb-4">
+              <img src="/talklens/ft1.png" alt="GOLDENBEAM" className="w-full object-contain" />
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              株式会社GOLDENBEAMの企業情報
-            </p>
+            <p className="text-lg font-bold text-slate-900">株式会社GOLDENBEAM</p>
           </a>
 
           {/* Writter */}
@@ -2601,15 +2607,16 @@ export default function TalkLensPage() {
             className="bg-white rounded-3xl p-8 text-center shadow-sm border border-slate-100 transition-all hover:shadow-lg hover:-translate-y-1 group"
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500 text-white text-xs font-bold mb-6">
-              日常や最新情報を見たい！
+              フォロワー0から広がる新しいSNS！
             </span>
-            <h3 className="text-xl font-bold text-slate-900 mb-6 group-hover:text-cyan-600 transition-colors">Writter</h3>
-            <div className="h-20 flex items-center justify-center mb-6 bg-blue-500 rounded-xl overflow-hidden">
-              <span className="text-white font-black text-xl">WRITTER</span>
+            <div className="flex flex-col items-center justify-center gap-6 mb-4">
+              <div className="w-full">
+                <img src="/talklens/ft2.png" alt="Writter" className="w-full object-contain" />
+              </div>
+              <div className="w-full">
+                <img src="/talklens/logo_w1.png" alt="Writter Logo" className="w-full object-contain" />
+              </div>
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              アプリのホームページへ
-            </p>
           </a>
 
           {/* #ライプロ */}
@@ -2620,15 +2627,12 @@ export default function TalkLensPage() {
             className="bg-white rounded-3xl p-8 text-center shadow-sm border border-slate-100 transition-all hover:shadow-lg hover:-translate-y-1 group"
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500 text-white text-xs font-bold mb-6">
-              もっと占いやコラムを読みたい！
+              他のプロジェクトで遊ぶ！
             </span>
-            <h3 className="text-xl font-bold text-slate-900 mb-6 group-hover:text-cyan-600 transition-colors">#ライプロ</h3>
-            <div className="h-20 flex items-center justify-center mb-6 bg-gradient-to-br from-purple-400 via-pink-400 to-blue-400 rounded-xl">
-              <span className="text-white font-black text-lg">PROJECT</span>
+            <div className="w-full mb-4">
+              <img src="/talklens/ft3.png" alt="Writter Project" className="w-full object-contain" />
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              様々な企画を実験
-            </p>
+            <p className="text-lg font-bold text-slate-900">#ライプロ</p>
           </a>
         </div>
       </section>
