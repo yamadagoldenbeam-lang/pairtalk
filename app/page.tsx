@@ -314,18 +314,18 @@ const GlassHeader = () => {
 // 相性12種類セクション - nani.now風リッチデザイン
 const CompatibilityTypesSection = () => {
   const allTypes = [
-    { key: 'equal_highSpeed_story', ...RELATIONSHIP_TYPES['equal_highSpeed_story'], gradient: 'from-rose-500 to-pink-500' },
-    { key: 'equal_highSpeed_resonance', ...RELATIONSHIP_TYPES['equal_highSpeed_resonance'], gradient: 'from-orange-500 to-amber-500' },
-    { key: 'equal_highSpeed_peace', ...RELATIONSHIP_TYPES['equal_highSpeed_peace'], gradient: 'from-emerald-500 to-teal-500' },
-    { key: 'equal_leisurely_story', ...RELATIONSHIP_TYPES['equal_leisurely_story'], gradient: 'from-blue-500 to-cyan-500' },
-    { key: 'equal_leisurely_resonance', ...RELATIONSHIP_TYPES['equal_leisurely_resonance'], gradient: 'from-violet-500 to-purple-500' },
-    { key: 'equal_leisurely_peace', ...RELATIONSHIP_TYPES['equal_leisurely_peace'], gradient: 'from-lime-500 to-green-500' },
-    { key: 'bias_highSpeed_story', ...RELATIONSHIP_TYPES['bias_highSpeed_story'], gradient: 'from-red-500 to-rose-500' },
-    { key: 'bias_highSpeed_resonance', ...RELATIONSHIP_TYPES['bias_highSpeed_resonance'], gradient: 'from-fuchsia-500 to-pink-500' },
-    { key: 'bias_highSpeed_peace', ...RELATIONSHIP_TYPES['bias_highSpeed_peace'], gradient: 'from-sky-500 to-blue-500' },
-    { key: 'bias_leisurely_story', ...RELATIONSHIP_TYPES['bias_leisurely_story'], gradient: 'from-amber-500 to-yellow-500' },
-    { key: 'bias_leisurely_resonance', ...RELATIONSHIP_TYPES['bias_leisurely_resonance'], gradient: 'from-indigo-500 to-violet-500' },
-    { key: 'bias_leisurely_peace', ...RELATIONSHIP_TYPES['bias_leisurely_peace'], gradient: 'from-teal-500 to-emerald-500' },
+    { key: 'equal_highSpeed_story', ...RELATIONSHIP_TYPES['equal_highSpeed_story'], gradient: 'from-rose-500 to-pink-500', image: '/talklens/20260125_main.png' },
+    { key: 'equal_highSpeed_resonance', ...RELATIONSHIP_TYPES['equal_highSpeed_resonance'], gradient: 'from-orange-500 to-amber-500', image: '/talklens/reaction.png' },
+    { key: 'equal_highSpeed_peace', ...RELATIONSHIP_TYPES['equal_highSpeed_peace'], gradient: 'from-emerald-500 to-teal-500', image: '/talklens/chirupi.png' },
+    { key: 'equal_leisurely_story', ...RELATIONSHIP_TYPES['equal_leisurely_story'], gradient: 'from-blue-500 to-cyan-500', image: '/talklens/20260125_main.png' },
+    { key: 'equal_leisurely_resonance', ...RELATIONSHIP_TYPES['equal_leisurely_resonance'], gradient: 'from-violet-500 to-purple-500', image: '/talklens/oshi.png' },
+    { key: 'equal_leisurely_peace', ...RELATIONSHIP_TYPES['equal_leisurely_peace'], gradient: 'from-lime-500 to-green-500', image: '/talklens/20260125_main.png' },
+    { key: 'bias_highSpeed_story', ...RELATIONSHIP_TYPES['bias_highSpeed_story'], gradient: 'from-red-500 to-rose-500', image: '/talklens/gachikoi.png' },
+    { key: 'bias_highSpeed_resonance', ...RELATIONSHIP_TYPES['bias_highSpeed_resonance'], gradient: 'from-fuchsia-500 to-pink-500', image: '/talklens/20260125_main.png' },
+    { key: 'bias_highSpeed_peace', ...RELATIONSHIP_TYPES['bias_highSpeed_peace'], gradient: 'from-sky-500 to-blue-500', image: '/talklens/kamattechan_shio.png' },
+    { key: 'bias_leisurely_story', ...RELATIONSHIP_TYPES['bias_leisurely_story'], gradient: 'from-amber-500 to-yellow-500', image: '/talklens/menhera.png' },
+    { key: 'bias_leisurely_resonance', ...RELATIONSHIP_TYPES['bias_leisurely_resonance'], gradient: 'from-indigo-500 to-violet-500', image: '/talklens/20260125_main.png' },
+    { key: 'bias_leisurely_peace', ...RELATIONSHIP_TYPES['bias_leisurely_peace'], gradient: 'from-teal-500 to-emerald-500', image: '/talklens/20260125_main.png' },
   ];
   
   return (
@@ -339,7 +339,7 @@ const CompatibilityTypesSection = () => {
         {/* セクションヘッダー */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full text-sm font-medium text-purple-700 mb-4">
-            Compatibility Types
+            トークの傾向
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#080D12' }}>
             全12種類の相性タイプ
@@ -362,7 +362,7 @@ const CompatibilityTypesSection = () => {
                 <div className="relative w-40 h-40">
                   <div className="relative w-full h-full drop-shadow-xl transition-transform duration-300 group-hover:scale-110">
                     <img 
-                      src="/talklens/20260125_main.png" 
+                      src={type.image} 
                       alt={type.name}
                       className="w-full h-full object-contain"
                     />
