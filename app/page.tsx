@@ -93,6 +93,7 @@ interface AnalysisResult {
     resultType: string;
     description: string;
     emoji: string;
+    image: string;
     metrics: {
       balanceRate: number;      // 比率（Max文字数/総文字数）
       highSpeedReplyRate: number; // 高速返信率（10分以内の返信の割合）
@@ -143,26 +144,26 @@ const RELATIONSHIP_THRESHOLDS = {
 
 // 12型分類マトリクス
 const RELATIONSHIP_TYPES: {
-  [key: string]: { name: string; emoji: string; description: string };
+  [key: string]: { name: string; emoji: string; description: string; image: string };
 } = {
   // 対等 × 高速
-  'equal_highSpeed_story': { name: 'エモ共有タイプ', emoji: '💞', description: '感情をオープンに共有し合う、親密で熱量の高い関係' },
-  'equal_highSpeed_resonance': { name: 'リアクション祭りタイプ', emoji: '🎉', description: 'スタンプやリアクションが飛び交う、ノリの良い関係' },
-  'equal_highSpeed_peace': { name: 'チルピタイプ', emoji: '☕', description: '程よい距離感でサクッと返信し合う、心地よい関係' },
+  'equal_highSpeed_story': { name: 'エモ共有タイプ', emoji: '💞', description: '感情をオープンに共有し合う、親密で熱量の高い関係', image: '/talklens/emo.png' },
+  'equal_highSpeed_resonance': { name: 'リアクション祭りタイプ', emoji: '🎉', description: 'スタンプやリアクションが飛び交う、ノリの良い関係', image: '/talklens/reaction.png' },
+  'equal_highSpeed_peace': { name: 'チルピタイプ', emoji: '☕', description: '程よい距離感でサクッと返信し合う、心地よい関係', image: '/talklens/chirupi.png' },
   // 対等 × 悠々
-  'equal_leisurely_story': { name: 'じっくり文豪タイプ', emoji: '📖', description: 'お互いに長文で深い話をじっくり交わす、知的な関係' },
-  'equal_leisurely_resonance': { name: '推し×推されタイプ', emoji: '⭐', description: 'お互いを応援し合い、スタンプで気持ちを伝え合う関係' },
-  'equal_leisurely_peace': { name: 'ゆる繋がりタイプ', emoji: '🌿', description: '急がず焦らず、マイペースに続く穏やかな関係' },
+  'equal_leisurely_story': { name: 'じっくり文豪タイプ', emoji: '📖', description: 'お互いに長文で深い話をじっくり交わす、知的な関係', image: '/talklens/bungo.png' },
+  'equal_leisurely_resonance': { name: '推し×推されタイプ', emoji: '⭐', description: 'お互いを応援し合い、スタンプで気持ちを伝え合う関係', image: '/talklens/oshi.png' },
+  'equal_leisurely_peace': { name: 'ゆる繋がりタイプ', emoji: '🌿', description: '急がず焦らず、マイペースに続く穏やかな関係', image: '/talklens/yurutsunagari.png' },
   // 偏り × 高速
-  'bias_highSpeed_story': { name: 'ガチ恋タイプ', emoji: '💘', description: '一方が熱い想いを込めた長文を送り続ける、情熱的な関係' },
-  'bias_highSpeed_resonance': { name: 'リア充全開タイプ', emoji: '📸', description: '写真やスタンプで日常をシェアしまくる、賑やかな関係' },
-  'bias_highSpeed_peace': { name: '構ってちゃん×塩対応タイプ', emoji: '🧊', description: '一方が連投し、もう一方が淡々と返す、温度差のある関係' },
+  'bias_highSpeed_story': { name: 'ガチ恋タイプ', emoji: '💘', description: '一方が熱い想いを込めた長文を送り続ける、情熱的な関係', image: '/talklens/gachikoi.png' },
+  'bias_highSpeed_resonance': { name: 'リア充全開タイプ', emoji: '📸', description: '写真やスタンプで日常をシェアしまくる、賑やかな関係', image: '/talklens/riaju.png' },
+  'bias_highSpeed_peace': { name: '構ってちゃん×塩対応タイプ', emoji: '🧊', description: '一方が連投し、もう一方が淡々と返す、温度差のある関係', image: '/talklens/kamattechan_shio.png' },
   // 偏り × 悠々
-  'bias_leisurely_story': { name: 'のんびりメンヘラケアタイプ', emoji: '🤲', description: '一方が悩みを吐露し、もう一方が受け止める、支え合いの関係' },
-  'bias_leisurely_resonance': { name: 'めちゃぱちゃマイペースタイプ', emoji: '📣', description: 'のんびりペースでリアクションを送り合う、見守り系の関係' },
-  'bias_leisurely_peace': { name: '聞き役×語り手タイプ', emoji: '👂', description: '一方が語り、一方が聞く、役割分担がはっきりした関係' },
+  'bias_leisurely_story': { name: 'のんびりメンヘラケアタイプ', emoji: '🤲', description: '一方が悩みを吐露し、もう一方が受け止める、支え合いの関係', image: '/talklens/menhera.png' },
+  'bias_leisurely_resonance': { name: 'めちゃぱちゃマイペースタイプ', emoji: '📣', description: 'のんびりペースでリアクションを送り合う、見守り系の関係', image: '/talklens/mypase.png' },
+  'bias_leisurely_peace': { name: '聞き役×語り手タイプ', emoji: '👂', description: '一方が語り、一方が聞く、役割分担がはっきりした関係', image: '/talklens/kikifekatarite.png' },
   // 例外
-  'egg': { name: '卵タイプ', emoji: '🥚', description: 'まだデータが少なく、関係性を判定するには早い段階' },
+  'egg': { name: '卵タイプ', emoji: '🥚', description: 'まだデータが少なく、関係性を判定するには早い段階', image: '/talklens/baby.png' },
 };
 
 // スクロール時のフェードインアニメーションコンポーネント
@@ -314,18 +315,18 @@ const GlassHeader = () => {
 // 相性12種類セクション - nani.now風リッチデザイン
 const CompatibilityTypesSection = () => {
   const allTypes = [
-    { key: 'equal_highSpeed_story', ...RELATIONSHIP_TYPES['equal_highSpeed_story'], gradient: 'from-rose-500 to-pink-500', image: '/talklens/20260125_main.png' },
-    { key: 'equal_highSpeed_resonance', ...RELATIONSHIP_TYPES['equal_highSpeed_resonance'], gradient: 'from-orange-500 to-amber-500', image: '/talklens/reaction.png' },
-    { key: 'equal_highSpeed_peace', ...RELATIONSHIP_TYPES['equal_highSpeed_peace'], gradient: 'from-emerald-500 to-teal-500', image: '/talklens/chirupi.png' },
-    { key: 'equal_leisurely_story', ...RELATIONSHIP_TYPES['equal_leisurely_story'], gradient: 'from-blue-500 to-cyan-500', image: '/talklens/20260125_main.png' },
-    { key: 'equal_leisurely_resonance', ...RELATIONSHIP_TYPES['equal_leisurely_resonance'], gradient: 'from-violet-500 to-purple-500', image: '/talklens/oshi.png' },
-    { key: 'equal_leisurely_peace', ...RELATIONSHIP_TYPES['equal_leisurely_peace'], gradient: 'from-lime-500 to-green-500', image: '/talklens/20260125_main.png' },
-    { key: 'bias_highSpeed_story', ...RELATIONSHIP_TYPES['bias_highSpeed_story'], gradient: 'from-red-500 to-rose-500', image: '/talklens/gachikoi.png' },
-    { key: 'bias_highSpeed_resonance', ...RELATIONSHIP_TYPES['bias_highSpeed_resonance'], gradient: 'from-fuchsia-500 to-pink-500', image: '/talklens/20260125_main.png' },
-    { key: 'bias_highSpeed_peace', ...RELATIONSHIP_TYPES['bias_highSpeed_peace'], gradient: 'from-sky-500 to-blue-500', image: '/talklens/kamattechan_shio.png' },
-    { key: 'bias_leisurely_story', ...RELATIONSHIP_TYPES['bias_leisurely_story'], gradient: 'from-amber-500 to-yellow-500', image: '/talklens/menhera.png' },
-    { key: 'bias_leisurely_resonance', ...RELATIONSHIP_TYPES['bias_leisurely_resonance'], gradient: 'from-indigo-500 to-violet-500', image: '/talklens/20260125_main.png' },
-    { key: 'bias_leisurely_peace', ...RELATIONSHIP_TYPES['bias_leisurely_peace'], gradient: 'from-teal-500 to-emerald-500', image: '/talklens/20260125_main.png' },
+    { key: 'equal_highSpeed_story', ...RELATIONSHIP_TYPES['equal_highSpeed_story'], gradient: 'from-rose-500 to-pink-500' },
+    { key: 'equal_highSpeed_resonance', ...RELATIONSHIP_TYPES['equal_highSpeed_resonance'], gradient: 'from-orange-500 to-amber-500' },
+    { key: 'equal_highSpeed_peace', ...RELATIONSHIP_TYPES['equal_highSpeed_peace'], gradient: 'from-emerald-500 to-teal-500' },
+    { key: 'equal_leisurely_story', ...RELATIONSHIP_TYPES['equal_leisurely_story'], gradient: 'from-blue-500 to-cyan-500' },
+    { key: 'equal_leisurely_resonance', ...RELATIONSHIP_TYPES['equal_leisurely_resonance'], gradient: 'from-violet-500 to-purple-500' },
+    { key: 'equal_leisurely_peace', ...RELATIONSHIP_TYPES['equal_leisurely_peace'], gradient: 'from-lime-500 to-green-500' },
+    { key: 'bias_highSpeed_story', ...RELATIONSHIP_TYPES['bias_highSpeed_story'], gradient: 'from-red-500 to-rose-500' },
+    { key: 'bias_highSpeed_resonance', ...RELATIONSHIP_TYPES['bias_highSpeed_resonance'], gradient: 'from-fuchsia-500 to-pink-500' },
+    { key: 'bias_highSpeed_peace', ...RELATIONSHIP_TYPES['bias_highSpeed_peace'], gradient: 'from-sky-500 to-blue-500' },
+    { key: 'bias_leisurely_story', ...RELATIONSHIP_TYPES['bias_leisurely_story'], gradient: 'from-amber-500 to-yellow-500' },
+    { key: 'bias_leisurely_resonance', ...RELATIONSHIP_TYPES['bias_leisurely_resonance'], gradient: 'from-indigo-500 to-violet-500' },
+    { key: 'bias_leisurely_peace', ...RELATIONSHIP_TYPES['bias_leisurely_peace'], gradient: 'from-teal-500 to-emerald-500' },
   ];
   
   return (
@@ -345,7 +346,7 @@ const CompatibilityTypesSection = () => {
             全12種類の相性タイプ
           </h2>
           <p className="text-lg max-w-2xl mx-auto" style={{ color: '#67757C' }}>
-            二人のトーク傾向から、<br />関係性を診断するよ
+            二人のトーク傾向から<br />関係性を診断するよ！
           </p>
         </div>
         
@@ -1587,7 +1588,7 @@ export default function TalkLensPage() {
     
     // 12型分類の決定
     let relationshipTypeKey: string;
-    let relationshipTypeData: { name: string; emoji: string; description: string };
+    let relationshipTypeData: { name: string; emoji: string; description: string; image: string };
     
     if (totalValidMessages < RELATIONSHIP_THRESHOLDS.MIN_MESSAGES_FOR_ANALYSIS) {
       // 100件未満は「卵タイプ」
@@ -1603,6 +1604,7 @@ export default function TalkLensPage() {
       resultType: relationshipTypeData.name,
       description: relationshipTypeData.description,
       emoji: relationshipTypeData.emoji,
+      image: relationshipTypeData.image,
       metrics: {
         balanceRate: Math.round(balanceRate * 100) / 100,
         highSpeedReplyRate: Math.round(highSpeedReplyRate * 100) / 100,
@@ -2020,7 +2022,7 @@ export default function TalkLensPage() {
               {/* キャラクター画像 */}
               <div className="w-72 h-72 relative">
                 <img 
-                  src="/talklens/20260125_oshiosare.png" 
+                  src={results.relationshipType.image} 
                   alt={results.relationshipType.resultType}
                   className="w-full h-full object-contain drop-shadow-xl"
                 />

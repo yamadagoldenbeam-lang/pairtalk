@@ -53,8 +53,8 @@ export const metadata: Metadata = {
     images: ["/talklens/20260125_main.png"],
   },
   icons: {
-    icon: "/talklens/icon.svg",
-    apple: "/talklens/apple-icon.png",
+    icon: "/talklens/fav.png",
+    apple: "/talklens/fav.png",
   },
   robots: {
     index: true,
