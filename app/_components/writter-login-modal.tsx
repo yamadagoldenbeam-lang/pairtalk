@@ -63,24 +63,14 @@ export function WritterLoginModal({ isOpen, onClose }: WritterLoginModalProps) {
       );
 
       const data = await response.json();
-      
-      // デバッグ用ログ
-      console.log("API Response Status:", response.status);
-      console.log("API Response Data:", JSON.stringify(data, null, 2));
 
-      // 成功判定：access_tokenまたはtoken_typeがあればOK、またはerrorがなければOK
       if (response.ok && (data.access_token || data.token_type || (!data.error && !data.message))) {
-        // ログイン成功
-        console.log("Login Success!");
         setUserData(data);
         setIsSuccess(true);
       } else {
-        // エラー
-        console.log("Login Error:", JSON.stringify(data, null, 2));
         setError(data.message || data.error_description || data.error || "ログインに失敗しました。ユーザー名またはパスワードを確認してください。");
       }
     } catch (err) {
-      console.error("API Call Error:", err);
       setError("通信エラーが発生しました。しばらくしてからお試しください。");
     } finally {
       setIsLoading(false);

@@ -22,8 +22,6 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
     const droppedFile = e.dataTransfer.files[0]
     if (droppedFile) {
       setFile(droppedFile)
-      // ここでは自動開始しない、ユーザーがボタンを押すのを待つか、
-      // props経由で自動開始するか選べるが、元のUIフローに合わせてボタン押下で開始するならsetFileだけ
     }
   }
 

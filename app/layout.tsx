@@ -67,11 +67,43 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ペアトーク履歴診断 for LINE",
+    "description": "LINEのトーク履歴を分析して、二人の関係性をカンタン診断！",
+    "url": "https://pairtalk.site",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "株式会社GOLDENBEAM",
+      "url": "https://pairtalk.site"
+    },
+    "inLanguage": "ja",
+    "featureList": [
+      "LINEトーク履歴の分析",
+      "二人の関係性診断",
+      "メッセージ統計の可視化",
+      "返信速度の分析",
+      "よく使う言葉のランキング"
+    ]
+  };
+
   return (
     <html lang="ja">
       <head>
         <meta name="google-site-verification" content="i9njDcabqKr4_U4SunD--Dp4f7UDpV2dSOtTr5M7IfI" />
         <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
