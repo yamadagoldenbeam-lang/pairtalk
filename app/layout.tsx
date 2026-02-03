@@ -70,6 +70,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
+        <meta name="google-site-verification" content="i9njDcabqKr4_U4SunD--Dp4f7UDpV2dSOtTr5M7IfI" />
         <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet" />
       </head>
       <body
