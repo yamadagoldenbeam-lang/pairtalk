@@ -54,13 +54,13 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
       </div>
 
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 animate-fade-in-up text-center leading-tight tracking-tight">
-        ペアトーク相性診断
+        ペアトーク履歴診断 for LINE
       </h1>
       <p
         className="text-slate-600 text-lg md:text-xl font-medium mb-12 text-center text-balance animate-fade-in-up"
         style={{ animationDelay: "0.1s" }}
       >
-        LINEトーク履歴を分析して、二人の相性をカンタン診断！
+        LINEトーク履歴を分析して、二人の関係性をカンタン診断！
       </p>
 
       {/* 安心メッセージ - 刷新されたデザイン */}
@@ -155,7 +155,7 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
                   分析中...
                 </span>
               ) : (
-                "分析を開始"
+                "無料で分析する！"
               )}
             </button>
           </div>

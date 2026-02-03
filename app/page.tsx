@@ -92,6 +92,7 @@ interface AnalysisResult {
   relationshipType: {
     resultType: string;
     description: string;
+    detailedDescription: string;
     emoji: string;
     image: string;
     metrics: {
@@ -144,26 +145,104 @@ const RELATIONSHIP_THRESHOLDS = {
 
 // 12型分類マトリクス
 const RELATIONSHIP_TYPES: {
-  [key: string]: { name: string; emoji: string; description: string; image: string };
+  [key: string]: { name: string; emoji: string; description: string; detailedDescription: string; image: string };
 } = {
   // 対等 × 高速
-  'equal_highSpeed_story': { name: 'エモ共有タイプ', emoji: '💞', description: '感情をオープンに共有し合う、親密で熱量の高い関係', image: '/talklens/emo.png' },
-  'equal_highSpeed_resonance': { name: 'リアクション祭りタイプ', emoji: '🎉', description: 'スタンプやリアクションが飛び交う、ノリの良い関係', image: '/talklens/reaction.png' },
-  'equal_highSpeed_peace': { name: 'チルピタイプ', emoji: '☕', description: '程よい距離感でサクッと返信し合う、心地よい関係', image: '/talklens/chirupi.png' },
+  'equal_highSpeed_story': { 
+    name: 'エモ共有タイプ', 
+    emoji: '💞', 
+    description: '感情をオープンに共有し合う、親密で熱量の高い関係', 
+    detailedDescription: 'この二人はお互い同じくらいにメッセージを送りあっていて、返信のテンポも速く、長めの文章で感情を豊かに表現します。まさに心を開いて語り合うエモーショナルな二人です。',
+    image: '/talklens/emo.png' 
+  },
+  'equal_highSpeed_resonance': { 
+    name: 'リアクション祭りタイプ', 
+    emoji: '🎉', 
+    description: 'スタンプやリアクションが飛び交う、ノリの良い関係', 
+    detailedDescription: 'この二人はお互い同じくらいにメッセージを送りあっていて、返信のテンポも速く、スタンプや写真で盛り上がります。まさにノリと勢いで楽しむリアクション豊かな二人です。',
+    image: '/talklens/reaction.png' 
+  },
+  'equal_highSpeed_peace': { 
+    name: 'チルピタイプ', 
+    emoji: '☕', 
+    description: '程よい距離感でサクッと返信し合う、心地よい関係', 
+    detailedDescription: 'この二人はお互い同じくらいにメッセージを送りあっていて、返信のテンポも速く、文章も短め。まさに会話のようなやりとりをするチルピープルな二人です。',
+    image: '/talklens/chirupi.png' 
+  },
   // 対等 × 悠々
-  'equal_leisurely_story': { name: 'じっくり文豪タイプ', emoji: '📖', description: 'お互いに長文で深い話をじっくり交わす、知的な関係', image: '/talklens/bungo.png' },
-  'equal_leisurely_resonance': { name: '推し×推されタイプ', emoji: '⭐', description: 'お互いを応援し合い、スタンプで気持ちを伝え合う関係', image: '/talklens/oshi.png' },
-  'equal_leisurely_peace': { name: 'ゆる繋がりタイプ', emoji: '🌿', description: '急がず焦らず、マイペースに続く穏やかな関係', image: '/talklens/yurutsunagari.png' },
+  'equal_leisurely_story': { 
+    name: 'じっくり文豪タイプ', 
+    emoji: '📖', 
+    description: 'お互いに長文で深い話をじっくり交わす、知的な関係', 
+    detailedDescription: 'この二人はお互い同じくらいにメッセージを送りあっていて、返信はゆっくりめで、長文で深い話を交わします。まさに言葉を大切にする文豪のような二人です。',
+    image: '/talklens/bungo.png' 
+  },
+  'equal_leisurely_resonance': { 
+    name: '推し×推されタイプ', 
+    emoji: '⭐', 
+    description: 'お互いを応援し合い、スタンプで気持ちを伝え合う関係', 
+    detailedDescription: 'この二人はお互い同じくらいにメッセージを送りあっていて、返信はゆっくりめで、スタンプや写真でお互いを応援し合います。まさに互いを高め合う推し活な二人です。',
+    image: '/talklens/oshi.png' 
+  },
+  'equal_leisurely_peace': { 
+    name: 'ゆる繋がりタイプ', 
+    emoji: '🌿', 
+    description: '急がず焦らず、マイペースに続く穏やかな関係', 
+    detailedDescription: 'この二人はお互い同じくらいにメッセージを送りあっていて、返信はゆっくりめで、短めの文章でマイペースにやりとりします。まさに心地よい距離感を保つゆるい二人です。',
+    image: '/talklens/yurutsunagari.png' 
+  },
   // 偏り × 高速
-  'bias_highSpeed_story': { name: 'ガチ恋タイプ', emoji: '💘', description: '一方が熱い想いを込めた長文を送り続ける、情熱的な関係', image: '/talklens/gachikoi.png' },
-  'bias_highSpeed_resonance': { name: 'リア充全開タイプ', emoji: '📸', description: '写真やスタンプで日常をシェアしまくる、賑やかな関係', image: '/talklens/riaju.png' },
-  'bias_highSpeed_peace': { name: '構ってちゃん×塩対応タイプ', emoji: '🧊', description: '一方が連投し、もう一方が淡々と返す、温度差のある関係', image: '/talklens/kamattechan_shio.png' },
+  'bias_highSpeed_story': { 
+    name: 'ガチ恋タイプ', 
+    emoji: '💘', 
+    description: '一方が熱い想いを込めた長文を送り続ける、情熱的な関係', 
+    detailedDescription: 'この二人は一方がもう一方よりも多くメッセージを送っていて、返信のテンポは速く、長文で熱い想いを伝えます。まさに情熱的な気持ちを届けるガチ恋な二人です。',
+    image: '/talklens/gachikoi.png' 
+  },
+  'bias_highSpeed_resonance': { 
+    name: 'リア充全開タイプ', 
+    emoji: '📸', 
+    description: '写真やスタンプで日常をシェアしまくる、賑やかな関係', 
+    detailedDescription: 'この二人は一方がもう一方よりも多くメッセージを送っていて、返信のテンポは速く、写真やスタンプで日常を共有します。まさに楽しい瞬間を分かち合うリア充な二人です。',
+    image: '/talklens/riaju.png' 
+  },
+  'bias_highSpeed_peace': { 
+    name: '構ってちゃん×塩対応タイプ', 
+    emoji: '🧊', 
+    description: '一方が連投し、もう一方が淡々と返す、温度差のある関係', 
+    detailedDescription: 'この二人は一方がもう一方よりも多くメッセージを送っていて、返信のテンポは速く、短めの文章でサクサクやりとりします。まさに温度差を感じる構ってちゃん×塩な二人です。',
+    image: '/talklens/kamattechan_shio.png' 
+  },
   // 偏り × 悠々
-  'bias_leisurely_story': { name: 'のんびりメンヘラケアタイプ', emoji: '🤲', description: '一方が悩みを吐露し、もう一方が受け止める、支え合いの関係', image: '/talklens/menhera.png' },
-  'bias_leisurely_resonance': { name: 'めちゃぱちゃマイペースタイプ', emoji: '📣', description: 'のんびりペースでリアクションを送り合う、見守り系の関係', image: '/talklens/mypase.png' },
-  'bias_leisurely_peace': { name: '聞き役×語り手タイプ', emoji: '👂', description: '一方が語り、一方が聞く、役割分担がはっきりした関係', image: '/talklens/kikifekatarite.png' },
+  'bias_leisurely_story': { 
+    name: 'のんびりメンヘラケアタイプ', 
+    emoji: '🤲', 
+    description: '一方が悩みを吐露し、もう一方が受け止める、支え合いの関係', 
+    detailedDescription: 'この二人は一方がもう一方よりも多くメッセージを送っていて、返信はゆっくりめで、長文で悩みや想いを伝えます。まさに支え合い、受け止め合うケアな二人です。',
+    image: '/talklens/menhera.png' 
+  },
+  'bias_leisurely_resonance': { 
+    name: 'めちゃぱちゃマイペースタイプ', 
+    emoji: '📣', 
+    description: 'のんびりペースでリアクションを送り合う、見守り系の関係', 
+    detailedDescription: 'この二人は一方がもう一方よりも多くメッセージを送っていて、返信はゆっくりめで、スタンプや写真でマイペースにやりとりします。まさに見守りながら繋がるマイペースな二人です。',
+    image: '/talklens/mypase.png' 
+  },
+  'bias_leisurely_peace': { 
+    name: '聞き役×語り手タイプ', 
+    emoji: '👂', 
+    description: '一方が語り、一方が聞く、役割分担がはっきりした関係', 
+    detailedDescription: 'この二人は一方がもう一方よりも多くメッセージを送っていて、返信はゆっくりめで、短めの文章でシンプルにやりとりします。まさに語り手と聞き役がはっきりした二人です。',
+    image: '/talklens/kikifekatarite.png' 
+  },
   // 例外
-  'egg': { name: '卵タイプ', emoji: '🥚', description: 'まだデータが少なく、関係性を判定するには早い段階', image: '/talklens/baby.png' },
+  'egg': { 
+    name: '卵タイプ', 
+    emoji: '🥚', 
+    description: 'まだデータが少なく、関係性を判定するには早い段階', 
+    detailedDescription: 'この二人のトーク履歴はまだ始まったばかり。これから二人の関係性が育っていく、期待と可能性に満ちた段階です。もっとやりとりを重ねて、二人らしい関係を築いていきましょう！',
+    image: '/talklens/baby.png' 
+  },
 };
 
 // スクロール時のフェードインアニメーションコンポーネント
@@ -1588,7 +1667,7 @@ export default function TalkLensPage() {
     
     // 12型分類の決定
     let relationshipTypeKey: string;
-    let relationshipTypeData: { name: string; emoji: string; description: string; image: string };
+    let relationshipTypeData: { name: string; emoji: string; description: string; detailedDescription: string; image: string };
     
     if (totalValidMessages < RELATIONSHIP_THRESHOLDS.MIN_MESSAGES_FOR_ANALYSIS) {
       // 100件未満は「卵タイプ」
@@ -1603,6 +1682,7 @@ export default function TalkLensPage() {
     const relationshipType = {
       resultType: relationshipTypeData.name,
       description: relationshipTypeData.description,
+      detailedDescription: relationshipTypeData.detailedDescription,
       emoji: relationshipTypeData.emoji,
       image: relationshipTypeData.image,
       metrics: {
@@ -2053,7 +2133,7 @@ export default function TalkLensPage() {
             {/* 診断結果の説明文 */}
             <div className="bg-cyan-50/50 rounded-xl p-6 mt-4 border border-cyan-100">
               <p className="text-slate-700 leading-relaxed text-base text-center">
-                この二人はお互い同じくらいにメッセージを送りあっていて、返信のテンポも速く、文章も短め。まさに会話のようなやりとりをするチルピープルな二人です。
+                {results.relationshipType.detailedDescription}
               </p>
             </div>
           </div>
