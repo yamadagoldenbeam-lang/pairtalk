@@ -464,6 +464,16 @@ const CompatibilityTypesSection = () => {
             </div>
           ))}
         </div>
+        
+        {/* 卵タイプの説明 */}
+        <div className="max-w-2xl mx-auto mt-12 px-4">
+          <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6 text-center shadow-sm">
+            <p className="text-amber-900 font-bold text-base leading-relaxed">
+              トーク履歴が少ない場合は卵タイプになります！<br />
+              たくさんトークしてから診断してね！
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -471,6 +481,7 @@ const CompatibilityTypesSection = () => {
 
 export default function TalkLensPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isShowingSuccess, setIsShowingSuccess] = useState(false);
   const [results, setResults] = useState<AnalysisResult | null>(null);
   const [isWritterModalOpen, setIsWritterModalOpen] = useState(false);
   const { toast } = useToast();
@@ -1842,8 +1853,19 @@ export default function TalkLensPage() {
       await new Promise(resolve => setTimeout(resolve, 300));
       
       const analysisResult = await analyzeMessages(messages);
+      
+      // 分析完了：まず結果をセットしてからShine.gifを表示
+      // これにより、GIFの背景が結果ページになる
       setResults(analysisResult);
+      setIsAnalyzing(false);
+      setIsShowingSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // 2.5秒後にShine.gifを非表示
+      setTimeout(() => {
+        setIsShowingSuccess(false);
+      }, 2500);
+      
     } catch (err) {
       console.error("分析エラー:", err);
       toast({
@@ -1851,7 +1873,6 @@ export default function TalkLensPage() {
         description: err instanceof Error ? err.message : "分析中にエラーが発生しました",
         variant: "destructive",
       });
-    } finally {
       setIsAnalyzing(false);
     }
   };
@@ -2012,6 +2033,113 @@ export default function TalkLensPage() {
     return createPortal(overlayContent, document.body);
   };
 
+  // 分析完了アニメーションオーバーレイ
+  const SuccessOverlay = () => {
+    const [mounted, setMounted] = useState(false);
+    const [fadeOut, setFadeOut] = useState(false);
+
+    useEffect(() => {
+      setMounted(true);
+      // 2秒後にフェードアウト開始
+      const timer = setTimeout(() => {
+        setFadeOut(true);
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }, []);
+
+    if (!mounted) return null;
+
+    const overlayContent = (
+      <div 
+        id="success-overlay-portal"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 2147483647,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          animation: fadeOut ? 'successFadeOut 0.5s ease-out forwards' : 'successFadeIn 0.3s ease-out',
+        }}
+      >
+        <div 
+          style={{
+            textAlign: 'center',
+            animation: fadeOut ? 'successZoomOut 0.5s ease-out' : 'successZoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          }}
+        >
+          {/* Shine GIF */}
+          <div style={{ marginBottom: '24px' }}>
+            <img 
+              src="/talklens/Shine.gif" 
+              alt="分析完了" 
+              style={{ 
+                width: '200px',
+                height: '200px',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 10px 30px rgba(6, 182, 212, 0.3))',
+              }}
+            />
+          </div>
+          
+          {/* テキスト */}
+          <h2 
+            style={{ 
+              fontSize: '32px',
+              fontWeight: 'bold',
+              background: 'linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              marginBottom: '12px',
+            }}
+          >
+            分析完了！
+          </h2>
+        </div>
+
+        {/* アニメーション用のスタイル */}
+        <style>{`
+          @keyframes successFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes successFadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+          }
+          @keyframes successZoomIn {
+            from { 
+              transform: scale(0.5);
+              opacity: 0;
+            }
+            to { 
+              transform: scale(1);
+              opacity: 1;
+            }
+          }
+          @keyframes successZoomOut {
+            from { 
+              transform: scale(1);
+              opacity: 1;
+            }
+            to { 
+              transform: scale(0.9);
+              opacity: 0;
+            }
+          }
+        `}</style>
+      </div>
+    );
+
+    return createPortal(overlayContent, document.body);
+  };
+
   const MessageRatioChart = ({ data }: { data: { user1: number; user2: number; user1Name: string; user2Name: string } }) => {
     const total = data.user1 + data.user2;
     const user1Percent = total > 0 ? Math.round((data.user1 / total) * 100) : 0;
@@ -2060,7 +2188,9 @@ export default function TalkLensPage() {
 
   if (results) {
     return (
-      <div className="min-h-screen animate-fade-in-up" style={{ backgroundColor: '#F0F8FF' }}>
+      <>
+        {isShowingSuccess && <SuccessOverlay />}
+        <div className="min-h-screen animate-fade-in-up" style={{ backgroundColor: '#F0F8FF' }}>
         {/* リッチなヘッダー - 動的エフェクト付き */}
         <div className="relative overflow-hidden bg-gradient-to-br from-[#00BFFF] via-[#00D4FF] to-[#00A0E9] pb-20 pt-10 md:pt-14 shadow-xl">
           {/* 流れるグラデーションオーバーレイ */}
@@ -2166,7 +2296,6 @@ export default function TalkLensPage() {
               })()}
             </div>
             <h3 className="text-xl md:text-2xl font-black text-foreground mb-3">メッセージ履歴</h3>
-            <p className="text-sm text-muted-foreground">誰がどれくらい話しているか、会話の傾向を詳しく分析します。返信スピードや会話の長さも可視化！</p>
             
             {/* 詳細情報 - 1行ずつ */}
             <div className="mt-4 space-y-2 text-sm">
@@ -2514,9 +2643,11 @@ export default function TalkLensPage() {
             <div className="bg-white/80 backdrop-blur-sm border border-cyan-100 rounded-2xl p-8 text-center shadow-md relative overflow-hidden mb-4">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-500" />
               <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 bg-cyan-50 rounded-full flex items-center justify-center">
-                  <Sparkles className="w-8 h-8 text-cyan-500 animate-pulse" />
-                </div>
+                <img 
+                  src="/talklens/Shine (1).gif" 
+                  alt="完了" 
+                  className="w-24 h-24 object-contain"
+                />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-4">
                 トーク診断は以上だよ！<br />遊んでくれてありがとう！
@@ -2649,13 +2780,14 @@ export default function TalkLensPage() {
           onClose={() => setIsWritterModalOpen(false)} 
         />
       </div>
+      </>
     );
   }
 
   return (
     <>
       <GlassHeader />
-      <main className="min-h-screen animate-fade-in-up" style={{ backgroundColor: '#F0F8FF' }}>
+      <main className="min-h-screen" style={{ backgroundColor: '#F0F8FF' }}>
         {isAnalyzing && <AnalyzingOverlay />}
       <HeroSection onFileSelect={handleAnalyzeFile} isAnalyzing={isAnalyzing} />
       <CompatibilityTypesSection />

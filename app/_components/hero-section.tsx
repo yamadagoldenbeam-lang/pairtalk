@@ -46,23 +46,21 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
           src="/talklens/chirupi.png" 
           alt="トーク相性診断 メインビジュアル" 
           className="w-full h-full object-contain drop-shadow-2xl"
+          loading="eager"
         />
         {/* 背景の装飾 */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-yellow-200/40 to-pink-200/40 rounded-full blur-3xl -z-10 animate-pulse-slow" />
       </div>
 
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 animate-fade-in-up text-center leading-tight tracking-tight">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 text-center leading-tight tracking-tight">
         ペアトーク履歴診断 for LINE
       </h1>
-      <p
-        className="text-slate-600 text-lg md:text-xl font-medium mb-12 text-center text-balance animate-fade-in-up"
-        style={{ animationDelay: "0.1s" }}
-      >
+      <p className="text-slate-600 text-lg md:text-xl font-medium mb-12 text-center text-balance">
         LINEトーク履歴を分析して、二人の関係性をカンタン診断！
       </p>
 
       {/* 安心メッセージ - 刷新されたデザイン */}
-      <div className="w-full max-w-3xl mx-auto mb-2 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+      <div className="w-full max-w-3xl mx-auto mb-2">
         <div className="bg-white/80 backdrop-blur-sm border border-cyan-100 rounded-2xl p-6 text-center shadow-sm relative overflow-hidden">
               <p className="text-slate-800 font-bold leading-relaxed text-base">
             AI読み込みなし、サーバー保存なし！<br />
@@ -73,7 +71,7 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
       </div>
 
       {/* 矢印 */}
-      <div className="flex justify-center mb-6 animate-bounce" style={{ animationDelay: "0.4s" }}>
+      <div className="flex justify-center mb-6 animate-bounce">
         <img 
           src="/talklens/arrow.png" 
           alt="矢印" 
@@ -83,8 +81,7 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
 
       <div className="w-full max-w-6xl mx-auto px-4">
         <div
-          className="w-full bg-card rounded-3xl border border-border shadow-lg overflow-hidden animate-fade-in-up transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 relative z-10"
-          style={{ animationDelay: "0.3s" }}
+          className="w-full bg-card rounded-3xl border border-border shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 relative z-10"
         >
           {/* Header */}
           <div className="px-6 py-4 border-b border-border bg-slate-50/50">
