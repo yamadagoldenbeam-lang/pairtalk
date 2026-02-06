@@ -60,9 +60,18 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
       </p>
 
       {/* 安心メッセージ - 刷新されたデザイン */}
-      <div className="w-full max-w-3xl mx-auto mb-2">
+      <div className="w-full max-w-xl mx-auto mb-2">
         <div className="bg-white/80 backdrop-blur-sm border border-cyan-100 rounded-2xl p-6 text-center shadow-sm relative overflow-hidden">
-              <p className="text-slate-800 font-bold leading-relaxed text-base">
+          {/* Hero画像 */}
+          <div className="flex justify-center mb-4">
+            <img 
+              src="/talklens/hero.png" 
+              alt="安心分析" 
+              className="w-32 h-32 object-contain drop-shadow-lg"
+            />
+          </div>
+          
+          <p className="text-slate-800 font-bold leading-relaxed text-base">
             AI読み込みなし、サーバー保存なし！<br />
             運営も見れない仕組みだから<br />
             <span className="text-cyan-600 border-b-2 border-cyan-200">安心して分析</span>できるよ！

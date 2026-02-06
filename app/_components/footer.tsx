@@ -92,6 +92,8 @@ export function Footer() {
             <a href="https://golden-beam.com/contact" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">法人お問い合わせ</a>
             <span className="text-slate-300">|</span>
             <a href="#" className="hover:text-slate-900 transition-colors">ログイン</a>
+            <span className="text-slate-300">|</span>
+            <a href="https://golden-beam.com" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">運営会社</a>
           </div>
 
           {/* SNS Share Section */}
