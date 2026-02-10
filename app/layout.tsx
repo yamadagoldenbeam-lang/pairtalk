@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/talklens/20260125_main.png",
+        url: "/talklens/pairtalkOGP.png",
         width: 1200,
         height: 630,
         alt: "ペアトーク履歴診断 for LINE",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ペアトーク履歴診断 for LINE",
     description: "LINEのトーク履歴を分析して、二人の関係性を診断します",
-    images: ["/talklens/20260125_main.png"],
+    images: ["/talklens/pairtalkOGP.png"],
   },
   icons: {
     icon: "/talklens/fav.png",

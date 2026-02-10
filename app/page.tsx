@@ -290,8 +290,6 @@ const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 
 // グラスモーフィズムヘッダー（スマホ用）- 16personalities風の明るいデザイン
 const GlassHeader = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-[9999] md:hidden" style={{ WebkitTransform: 'translateZ(0)', position: 'fixed' }}>
@@ -303,88 +301,8 @@ const GlassHeader = () => {
                 ペアトーク相性診断
               </h1>
             </div>
-            
-            {/* 右: ハンバーガーメニュー */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors"
-              aria-label="メニュー"
-            >
-              {isMenuOpen ? (
-                <X className="w-5 h-5 text-slate-700" />
-              ) : (
-                <Menu className="w-5 h-5 text-slate-700" />
-              )}
-            </button>
           </div>
         </div>
-        
-        {/* ドロップダウンメニュー - リッチデザイン */}
-        {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-gradient-to-br from-white via-slate-50 to-blue-50 border-b border-slate-200 shadow-2xl animate-fade-in-up backdrop-blur-lg">
-            <nav className="px-6 py-6 space-y-3">
-              {/* ログインボタン - 枠で囲む */}
-              <a
-                href="https://writter-project.com/reiwaprof/login"
-                className="block w-full px-8 py-5 rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-red-500 text-white font-black text-center shadow-2xl hover:shadow-[0_10px_40px_rgba(236,72,153,0.5)] hover:from-pink-600 hover:via-rose-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 border-4 border-white/80"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <div className="flex items-center justify-center gap-3">
-                  <Trophy className="w-6 h-6 drop-shadow-lg" />
-                  <span className="text-xl tracking-wide drop-shadow-lg">ログイン</span>
-                </div>
-              </a>
-              
-              {/* 区切り線 */}
-              <div className="border-t border-slate-200 my-4" />
-              
-              {/* リンクセクション */}
-              <div className="space-y-2">
-                <a
-                  href="https://writter-project.com"
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/70 transition-all duration-200 group"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Sparkles className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div className="flex-1">
-                    <span className="font-bold text-slate-800 block">Writter</span>
-                    <span className="text-xs text-slate-500">文章力診断サービス</span>
-                  </div>
-                </a>
-                
-                <a
-                  href="https://writter-project.com/reiwaprof"
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/70 transition-all duration-200 group"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Heart className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <div className="flex-1">
-                    <span className="font-bold text-slate-800 block">ライプロ</span>
-                    <span className="text-xs text-slate-500">人生プロフィール作成</span>
-                  </div>
-                </a>
-                
-                <a
-                  href="https://writter-project.com/reiwaprof/register"
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/70 transition-all duration-200 group"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-100 to-yellow-100 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <TrendingUp className="w-5 h-5 text-amber-600" />
-                  </div>
-                  <div className="flex-1">
-                    <span className="font-bold text-slate-800 block">プレミアム</span>
-                    <span className="text-xs text-slate-500">有料プラン登録</span>
-                  </div>
-                </a>
-              </div>
-            </nav>
-          </div>
-        )}
       </header>
       {/* ヘッダー分のスペーサー（スマホのみ） */}
       <div className="h-14 md:hidden" />
@@ -2704,73 +2622,75 @@ export default function TalkLensPage() {
             </div>
           </FadeIn>
 
-          {/* プレミアム・限定バッジ・イラストレーター紹介セクション */}
-          <FadeIn delay={700}>
-          <section className="w-full max-w-6xl mx-auto px-4 -mt-2">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* プレミアム会員 - リッチな金色デザイン */}
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FFD700] via-[#FDB931] to-[#F3A922] p-1 shadow-lg transition-transform hover:scale-[1.02]">
-                <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-white/20 blur-3xl rounded-full animate-pulse" />
-                <div className="relative bg-black/5 backdrop-blur-sm rounded-[20px] p-8 h-full border border-white/20">
-                  <div className="flex flex-col items-center text-center space-y-4">
-                    <div className="p-4 bg-white/90 rounded-full shadow-lg">
-                      <Sparkles className="w-10 h-10 text-[#F3A922]" />
+          {/* プレミアム・限定バッジ・イラストレーター紹介セクション - 非表示 */}
+          {false && (
+            <FadeIn delay={700}>
+              <section className="w-full max-w-6xl mx-auto px-4 -mt-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* プレミアム会員 - リッチな金色デザイン */}
+                  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FFD700] via-[#FDB931] to-[#F3A922] p-1 shadow-lg transition-transform hover:scale-[1.02]">
+                    <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-white/20 blur-3xl rounded-full animate-pulse" />
+                    <div className="relative bg-black/5 backdrop-blur-sm rounded-[20px] p-8 h-full border border-white/20">
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        <div className="p-4 bg-white/90 rounded-full shadow-lg">
+                          <Sparkles className="w-10 h-10 text-[#F3A922]" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-black text-white drop-shadow-sm mb-2">プレミアム会員</h3>
+                          <p className="text-white/90 font-medium">詳細分析やグループトークの分析は<br/>プレミアム会員なら利用できます</p>
+                        </div>
+                        <Button className="w-full bg-white text-[#F3A922] hover:bg-white/90 font-bold text-lg h-12 rounded-xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
+                          詳しく見る
+                        </Button>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-black text-white drop-shadow-sm mb-2">プレミアム会員</h3>
-                      <p className="text-white/90 font-medium">詳細分析やグループトークの分析は<br/>プレミアム会員なら利用できます</p>
-                    </div>
-                    <Button className="w-full bg-white text-[#F3A922] hover:bg-white/90 font-bold text-lg h-12 rounded-xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
-                      詳しく見る
-                    </Button>
                   </div>
-                </div>
-              </div>
 
-              {/* 限定バッジ - リッチな紫グラデーションデザイン */}
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#9333EA] via-[#A855F7] to-[#C084FC] p-1 shadow-lg transition-transform hover:scale-[1.02]">
-                <div className="absolute top-0 left-0 -mt-8 -ml-8 w-32 h-32 bg-white/20 blur-3xl rounded-full" />
-                <div className="relative bg-black/5 backdrop-blur-sm rounded-[20px] p-8 h-full border border-white/20">
-                  <div className="flex flex-col items-center text-center space-y-4">
-                    <div className="p-4 bg-white/90 rounded-full shadow-lg">
-                      <Trophy className="w-10 h-10 text-purple-600" />
+                  {/* 限定バッジ - リッチな紫グラデーションデザイン */}
+                  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#9333EA] via-[#A855F7] to-[#C084FC] p-1 shadow-lg transition-transform hover:scale-[1.02]">
+                    <div className="absolute top-0 left-0 -mt-8 -ml-8 w-32 h-32 bg-white/20 blur-3xl rounded-full" />
+                    <div className="relative bg-black/5 backdrop-blur-sm rounded-[20px] p-8 h-full border border-white/20">
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        <div className="p-4 bg-white/90 rounded-full shadow-lg">
+                          <Trophy className="w-10 h-10 text-purple-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-black text-white drop-shadow-sm mb-2">限定バッジをゲット！</h3>
+                          <p className="text-white/90 font-medium">Writterにログインしてアプリで使える<br/>限定バッジを入手しよう！</p>
+                        </div>
+                        <Button 
+                          onClick={() => setIsWritterModalOpen(true)}
+                          className="w-full bg-white text-purple-600 hover:bg-white/90 font-bold text-lg h-12 rounded-xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5"
+                        >
+                          Writterにログイン
+                        </Button>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-black text-white drop-shadow-sm mb-2">限定バッジをゲット！</h3>
-                      <p className="text-white/90 font-medium">Writterにログインしてアプリで使える<br/>限定バッジを入手しよう！</p>
-                    </div>
-                    <Button 
-                      onClick={() => setIsWritterModalOpen(true)}
-                      className="w-full bg-white text-purple-600 hover:bg-white/90 font-bold text-lg h-12 rounded-xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5"
-                    >
-                      Writterにログイン
-                    </Button>
                   </div>
-                </div>
-              </div>
 
-              {/* イラストレーター紹介 - リッチなピンクグラデーションデザイン */}
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#EC4899] via-[#F472B6] to-[#FBCFE8] p-1 shadow-lg transition-transform hover:scale-[1.02]">
-                <div className="absolute bottom-0 right-0 -mb-8 -mr-8 w-32 h-32 bg-white/20 blur-3xl rounded-full" />
-                <div className="relative bg-black/5 backdrop-blur-sm rounded-[20px] p-8 h-full border border-white/20">
-                  <div className="flex flex-col items-center text-center space-y-4">
-                    <div className="p-4 bg-white/90 rounded-full shadow-lg">
-                      <Smile className="w-10 h-10 text-pink-600" />
+                  {/* イラストレーター紹介 - リッチなピンクグラデーションデザイン */}
+                  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#EC4899] via-[#F472B6] to-[#FBCFE8] p-1 shadow-lg transition-transform hover:scale-[1.02]">
+                    <div className="absolute bottom-0 right-0 -mb-8 -mr-8 w-32 h-32 bg-white/20 blur-3xl rounded-full" />
+                    <div className="relative bg-black/5 backdrop-blur-sm rounded-[20px] p-8 h-full border border-white/20">
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        <div className="p-4 bg-white/90 rounded-full shadow-lg">
+                          <Smile className="w-10 h-10 text-pink-600" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-white/80 mb-1">ILLUSTRATION</p>
+                          <p className="text-lg font-black text-white drop-shadow-sm mb-2">イラスト提供</p>
+                          <p className="text-white/90 font-medium text-sm">このサイトのイラストを提供してくれた<br/>イラストレーターさんをご紹介</p>
+                        </div>
+                        <Button className="w-full bg-white text-pink-600 hover:bg-white/90 font-bold text-lg h-12 rounded-xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
+                          詳しく見る
+                        </Button>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-xs font-bold text-white/80 mb-1">ILLUSTRATION</p>
-                      <p className="text-lg font-black text-white drop-shadow-sm mb-2">イラスト提供</p>
-                      <p className="text-white/90 font-medium text-sm">このサイトのイラストを提供してくれた<br/>イラストレーターさんをご紹介</p>
-                    </div>
-                    <Button className="w-full bg-white text-pink-600 hover:bg-white/90 font-bold text-lg h-12 rounded-xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
-                      詳しく見る
-                    </Button>
                   </div>
                 </div>
-              </div>
-            </div>
-          </section>
-          </FadeIn>
+              </section>
+            </FadeIn>
+          )}
 
           <Footer />
         </div>
