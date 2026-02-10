@@ -19,6 +19,7 @@ import { ArrowLeft, MessageCircle, Clock, Zap, Smile, BarChart3, TrendingUp, Tro
 import { cn } from "./_lib/utils";
 import { MascotIcon } from "./_components/mascot-icon";
 import { WritterLoginModal } from "./_components/writter-login-modal";
+import { NextActionDuel } from "./_components/NextActionDuel";
 
 interface Message {
   date: Date;
@@ -2794,62 +2795,7 @@ export default function TalkLensPage() {
       <FeaturesSection />
       <HowToSection />
       
-      {/* リンクカードセクション */}
-      <section className="py-16 w-full max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* 運営会社 */}
-          <a 
-            href="https://golden-beam.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white rounded-3xl p-8 text-center shadow-sm border border-slate-100 transition-all hover:shadow-lg hover:-translate-y-1 group"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500 text-white text-xs font-bold mb-6">
-              運営会社はこちら
-            </span>
-            <div className="w-full mb-4">
-              <img src="/talklens/ft1.png" alt="GOLDENBEAM" className="w-full object-contain" />
-            </div>
-            <p className="text-lg font-bold text-slate-900">株式会社GOLDENBEAM</p>
-          </a>
-
-          {/* Writter */}
-          <a 
-            href="https://writter.app" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white rounded-3xl p-8 text-center shadow-sm border border-slate-100 transition-all hover:shadow-lg hover:-translate-y-1 group"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500 text-white text-xs font-bold mb-6">
-              フォロワー0から広がる新しいSNS！
-            </span>
-            <div className="flex flex-col items-center justify-center gap-6 mb-4">
-              <div className="w-full">
-                <img src="/talklens/ft2.png" alt="Writter" className="w-full object-contain" />
-              </div>
-              <div className="w-full">
-                <img src="/talklens/logo_w1.png" alt="Writter Logo" className="w-full object-contain" />
-              </div>
-            </div>
-          </a>
-
-          {/* #ライプロ */}
-          <a 
-            href="https://writter-project.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white rounded-3xl p-8 text-center shadow-sm border border-slate-100 transition-all hover:shadow-lg hover:-translate-y-1 group"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500 text-white text-xs font-bold mb-6">
-              他のプロジェクトで遊ぶ！
-            </span>
-            <div className="w-full mb-4">
-              <img src="/talklens/ft3.png" alt="Writter Project" className="w-full object-contain" />
-            </div>
-            <p className="text-lg font-bold text-slate-900">#ライプロ</p>
-          </a>
-        </div>
-      </section>
+      <NextActionDuel />
 
       <Footer />
       </main>
