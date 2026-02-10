@@ -25,9 +25,9 @@ const OPTION_META: Record<
   },
   buzz_site: {
     badge: "WEBサイト",
-    title: "平成をエモ体験しよう。",
+    title: "平成をエモ体験しよｗ",
     logoUrl: "",
-    link: "https://pairtalk.site/",
+    link: "https://writter-project.com/reiwaprof",
     actionLabel: "令和プロフを開く",
     thumbnail: "/talklens/B.png",
   },
@@ -179,20 +179,30 @@ export function NextActionDuel() {
   };
 
   return (
-    <section className="py-24 w-full bg-gradient-to-b from-[#F0F8FF] to-slate-50 relative overflow-hidden">
+    <section className="py-12 md:py-24 w-full bg-gradient-to-b from-[#F0F8FF] to-slate-50 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#F0F8FF] to-transparent z-10" />
       
       <div className="max-w-6xl mx-auto px-4 relative z-20">
         <div className="text-center mb-16">
           <div className="inline-block relative mb-6">
             <div className="absolute inset-0 bg-yellow-300 blur-xl opacity-50 rounded-full animate-pulse" />
-            <span className="relative inline-flex items-center px-6 py-2.5 rounded-full bg-slate-900 text-white text-base md:text-lg font-black shadow-xl border-2 border-slate-700 tracking-wider">
+            <div className="relative inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-slate-900 text-white text-base md:text-lg font-black shadow-xl border-2 border-slate-700 tracking-wider">
+              <img 
+                src="/talklens/Star.gif" 
+                alt="star" 
+                className="w-6 h-6 object-contain"
+              />
               人気投票アンケート
-            </span>
+              <img 
+                src="/talklens/Star.gif" 
+                alt="star" 
+                className="w-6 h-6 object-contain"
+              />
+            </div>
           </div>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 text-slate-900 drop-shadow-sm tracking-tight leading-tight">
-            この２つならどっちが好き？
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mt-4 text-slate-900 drop-shadow-sm tracking-tight leading-tight whitespace-nowrap">
+            次、開くならどっち？
           </h2>
           
           <div className="mt-6 space-y-1">
@@ -227,7 +237,7 @@ export function NextActionDuel() {
             <div className="aspect-video bg-slate-100 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-500">
               <img 
                 src="/talklens/A.png"
-                alt="プロ向けメイン事業" 
+                alt="" 
                 className="w-full h-full object-cover"
               />
             </div>
@@ -247,10 +257,8 @@ export function NextActionDuel() {
           >
             {votedChoice === "main_service" ? (
               <>{OPTION_META.main_service.actionLabel} <ExternalLink className="w-4 h-4" /></>
-            ) : hasVoted ? (
-              <>こっちも開く <ExternalLink className="w-4 h-4" /></>
             ) : (
-              "こっちを選ぶ"
+              "こっちを開く"
             )}
           </button>
 
@@ -302,10 +310,8 @@ export function NextActionDuel() {
           >
             {votedChoice === "buzz_site" ? (
               <>{OPTION_META.buzz_site.actionLabel} <ExternalLink className="w-4 h-4" /></>
-            ) : hasVoted ? (
-              <>こっちも開く <ExternalLink className="w-4 h-4" /></>
             ) : (
-              "こっちを選ぶ"
+              "こっちを開く"
             )}
           </button>
 
