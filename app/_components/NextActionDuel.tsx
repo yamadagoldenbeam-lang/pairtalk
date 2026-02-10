@@ -13,21 +13,23 @@ const DEFAULT_VOTES: Votes = { main_service: 0, buzz_site: 0 };
 
 const OPTION_META: Record<
   VoteId,
-  { badge: string; title: string; description: string; link: string; actionLabel: string }
+  { badge: string; title: string; logoUrl: string; link: string; actionLabel: string; thumbnail: string }
 > = {
   main_service: {
-    badge: "プロ向けメイン事業",
-    title: "プロとして、さらに効率を極める",
-    description: "実務に直結する導線へ。信頼感と成果を重視したルート。",
-    link: "https://golden-beam.com",
-    actionLabel: "メイン事業へ進む",
+    badge: "iPhone/Androidストアで大好評配信中",
+    title: "こころ落ち着く、優しいSNS。",
+    logoUrl: "/talklens/logo_w1.png",
+    link: "https://writter.jp/",
+    actionLabel: "Writterを開く",
+    thumbnail: "/talklens/A.png",
   },
   buzz_site: {
-    badge: "バズサイト",
-    title: "一度すべてを忘れて、脳をバグらせる",
-    description: "カオスと勢い重視。直感で刺さる遊び場へジャンプ。",
-    link: "https://writter-project.com",
-    actionLabel: "バズサイトへ進む",
+    badge: "WEBサイト",
+    title: "平成をエモ体験しよう。",
+    logoUrl: "",
+    link: "https://pairtalk.site/",
+    actionLabel: "令和プロフを開く",
+    thumbnail: "/talklens/B.png",
   },
 };
 
@@ -177,15 +179,31 @@ export function NextActionDuel() {
   };
 
   return (
-    <section className="py-16 w-full max-w-6xl mx-auto px-4">
-      <div className="text-center mb-8">
-        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-xs font-bold shadow-md">
-          <Gauge className="w-3.5 h-3.5" />
-          人気投票
-        </span>
-        <h2 className="text-2xl md:text-3xl font-black mt-4 text-slate-800">次、何する？</h2>
-        <p className="text-slate-500 mt-2 text-sm md:text-base font-medium">みんなが最初に選んだ方にリアルタイムで票が入るよ！</p>
-      </div>
+    <section className="py-24 w-full bg-gradient-to-b from-[#F0F8FF] to-slate-50 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#F0F8FF] to-transparent z-10" />
+      
+      <div className="max-w-6xl mx-auto px-4 relative z-20">
+        <div className="text-center mb-16">
+          <div className="inline-block relative mb-6">
+            <div className="absolute inset-0 bg-yellow-300 blur-xl opacity-50 rounded-full animate-pulse" />
+            <span className="relative inline-flex items-center px-6 py-2.5 rounded-full bg-slate-900 text-white text-base md:text-lg font-black shadow-xl border-2 border-slate-700 tracking-wider">
+              人気投票アンケート
+            </span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 text-slate-900 drop-shadow-sm tracking-tight leading-tight">
+            この２つならどっちが好き？
+          </h2>
+          
+          <div className="mt-6 space-y-1">
+            <p className="text-slate-500 text-sm md:text-base font-medium">
+              最初に選んだ方にリアルタイムで票が入るよ！
+            </p>
+            <p className="text-slate-600 text-sm md:text-base font-medium">
+              選択後にみんなの回答が表示されるよ！
+            </p>
+          </div>
+        </div>
 
       {!isRealtimeAvailable && (
         <div className="mb-6 p-4 rounded-2xl border border-amber-200 bg-amber-50 text-amber-900 text-sm text-center">
@@ -201,17 +219,17 @@ export function NextActionDuel() {
         >
           {renderWinningBadge("main_service")}
           <div className="flex items-center gap-2 text-cyan-600 text-sm font-bold bg-white/80 backdrop-blur-sm w-fit px-3 py-1 rounded-full shadow-sm">
-            <Crown className="w-4 h-4 fill-cyan-100" />
             {OPTION_META.main_service.badge}
           </div>
           <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-800">{OPTION_META.main_service.title}</h3>
-          <p className="mt-3 text-slate-600 text-sm leading-relaxed font-medium">
-            {OPTION_META.main_service.description}
-          </p>
 
           <div className="mt-6 rounded-2xl overflow-hidden border-4 border-white shadow-md">
-            <div className="aspect-video bg-slate-100 flex items-center justify-center text-xs tracking-widest text-slate-400 font-bold relative group-hover:scale-105 transition-transform duration-500">
-              THUMBNAIL 16:9
+            <div className="aspect-video bg-slate-100 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-500">
+              <img 
+                src="/talklens/A.png"
+                alt="プロ向けメイン事業" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
@@ -232,7 +250,7 @@ export function NextActionDuel() {
             ) : hasVoted ? (
               <>こっちも開く <ExternalLink className="w-4 h-4" /></>
             ) : (
-              "こちらを選ぶ"
+              "こっちを選ぶ"
             )}
           </button>
 
@@ -256,17 +274,17 @@ export function NextActionDuel() {
         >
           {renderWinningBadge("buzz_site")}
           <div className="relative flex items-center gap-2 text-pink-600 text-sm font-bold bg-white/80 backdrop-blur-sm w-fit px-3 py-1 rounded-full shadow-sm">
-            <Bolt className="w-4 h-4 fill-pink-100" />
             {OPTION_META.buzz_site.badge}
           </div>
           <h3 className="relative mt-4 text-xl md:text-2xl font-black text-slate-800">{OPTION_META.buzz_site.title}</h3>
-          <p className="relative mt-3 text-slate-600 text-sm leading-relaxed font-medium">
-            {OPTION_META.buzz_site.description}
-          </p>
 
           <div className="relative mt-6 rounded-2xl overflow-hidden border-4 border-white shadow-md">
-            <div className="aspect-video bg-slate-100 flex items-center justify-center text-xs tracking-widest text-slate-400 font-bold relative group-hover:scale-105 transition-transform duration-500">
-              THUMBNAIL 16:9
+            <div className="aspect-video bg-slate-100 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-500">
+              <img 
+                src={OPTION_META.buzz_site.thumbnail}
+                alt="バズサイト" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
@@ -287,12 +305,13 @@ export function NextActionDuel() {
             ) : hasVoted ? (
               <>こっちも開く <ExternalLink className="w-4 h-4" /></>
             ) : (
-              "こちらを選ぶ"
+              "こっちを選ぶ"
             )}
           </button>
 
           {renderRateBar("buzz_site")}
         </motion.article>
+      </div>
       </div>
     </section>
   );
