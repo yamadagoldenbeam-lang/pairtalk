@@ -69,8 +69,9 @@ export function NextActionDuel() {
 
     const nextVotes: Votes = { ...DEFAULT_VOTES };
     for (const row of data) {
-      if (row.id === "main_service" || row.id === "buzz_site") {
-        nextVotes[row.id] = Number(row.count) || 0;
+      const id = row.id as string;
+      if (id === "main_service" || id === "buzz_site") {
+        nextVotes[id as VoteId] = Number(row.count) || 0;
       }
     }
     setVotes(nextVotes);
