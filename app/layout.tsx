@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ペアトーク履歴診断 for LINE",
+  title: "ペアトーク診断 for LINE",
   description: "LINEのトーク履歴を分析して、二人の関係性をカンタン診断！",
   keywords: ["ペアトーク履歴診断", "ペアトーク診断", "LINE診断", "トーク履歴分析", "会話分析", "相性診断", "Writter project"],
   authors: [{ name: "株式会社GOLDENBEAM" }],
@@ -31,10 +31,10 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "ペアトーク履歴診断 for LINE",
+    title: "ペアトーク診断 for LINE",
     description: "LINEのトーク履歴を分析して、二人の関係性を診断します",
     url: "https://pairtalk.site",
-    siteName: "ペアトーク履歴診断 for LINE",
+    siteName: "ペアトーク診断 for LINE",
     locale: "ja_JP",
     type: "website",
     images: [
@@ -42,13 +42,13 @@ export const metadata: Metadata = {
         url: "/talklens/pairtalkOGP.png",
         width: 1200,
         height: 630,
-        alt: "ペアトーク履歴診断 for LINE",
+        alt: "ペアトーク診断 for LINE",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ペアトーク履歴診断 for LINE",
+    title: "ペアトーク診断 for LINE",
     description: "LINEのトーク履歴を分析して、二人の関係性を診断します",
     images: ["/talklens/pairtalkOGP.png"],
   },
@@ -70,7 +70,7 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "ペアトーク履歴診断 for LINE",
+    "name": "ペアトーク診断 for LINE",
     "description": "LINEのトーク履歴を分析して、二人の関係性をカンタン診断！",
     "url": "https://pairtalk.site",
     "applicationCategory": "UtilitiesApplication",

@@ -53,7 +53,7 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
       </div>
 
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 text-center leading-tight tracking-tight">
-        ペアトーク履歴診断 for LINE
+        ペアトーク診断 for LINE
       </h1>
       <p className="text-slate-600 text-lg md:text-xl font-medium mb-12 text-center text-balance">
         LINEトーク履歴を分析して、二人の関係性をカンタン診断！
@@ -128,8 +128,8 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
                   <Upload className="w-8 h-8 text-slate-400" />
                 </div>
                 <div className="text-center space-y-1">
-                  <p className="text-lg font-bold text-slate-700">ドラッグ＆ドロップでファイルを選択</p>
-                  <p className="text-sm text-slate-500">またはクリックしてアップロード</p>
+                  <p className="text-lg font-bold text-slate-700">二人のトークを選択してね！</p>
+                  <p className="text-sm text-slate-500">グループトークは未対応だよ！要望があれば…？</p>
                 </div>
               </div>
             )}

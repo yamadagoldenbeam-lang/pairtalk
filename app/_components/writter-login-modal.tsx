@@ -182,7 +182,7 @@ export function WritterLoginModal({ isOpen, onClose }: WritterLoginModalProps) {
               🎉 バッジ獲得！
             </h2>
             <p className="text-slate-600 mb-6">
-              「ペアトーク相性診断」バッジが<br />
+              「ペアトーク診断 for LINE」バッジが<br />
               Writterアプリでアンロックされました！
             </p>
 
@@ -193,7 +193,7 @@ export function WritterLoginModal({ isOpen, onClose }: WritterLoginModalProps) {
               </div>
               <div className="text-left">
                 <p className="text-sm text-purple-600 font-medium">限定バッジ</p>
-                <p className="text-lg font-black text-slate-800">ペアトーク相性診断</p>
+                <p className="text-lg font-black text-slate-800">ペアトーク診断 for LINE</p>
               </div>
             </div>
 
