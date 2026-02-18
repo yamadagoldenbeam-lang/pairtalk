@@ -129,16 +129,16 @@ function forceEmojiStyle(text: string): string {
 // ========================================
 const RELATIONSHIP_THRESHOLDS = {
   // A. 比率（Balance）の閾値
-  BIAS_THRESHOLD: 0.7, // 70%以上で「偏り」
+  BIAS_THRESHOLD: 0.6, // 60%以上で「偏り」
   
   // B. 速度（Tempo）の閾値
   HIGH_SPEED_MINUTES: 10, // 10分以内を「高速返信」とみなす
-  HIGH_SPEED_RATE_THRESHOLD: 0.5, // 高速返信率50%以上で「高速」
+  HIGH_SPEED_RATE_THRESHOLD: 0.7, // 高速返信率70%以上で「高速」
   LEISURELY_AVG_MINUTES: 180, // 平均返信間隔180分以上で「悠々」
   
   // C. 質感（Expression）の閾値
-  STORY_AVG_CHARS: 30, // 平均30文字以上で「物語」
-  RESONANCE_MEDIA_RATE: 0.3, // メディア比率30%以上で「共鳴」
+  STORY_AVG_CHARS: 20, // 平均20文字以上で「物語」
+  RESONANCE_MEDIA_RATE: 0.2, // メディア比率20%以上で「共鳴」
   
   // 例外処理
   MIN_MESSAGES_FOR_ANALYSIS: 100, // 100件未満は「卵タイプ」
@@ -388,7 +388,7 @@ const CompatibilityTypesSection = () => {
         <div className="max-w-2xl mx-auto mt-12 px-4">
           <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6 text-center shadow-sm">
             <p className="text-amber-900 font-bold text-base leading-relaxed">
-              トーク履歴が少ない場合は卵タイプになります！<br />
+              トーク履歴が少ない場合は、診断ができません。その場合は、卵タイプと表示されます。<br />
               たくさんトークしてから診断してね！
             </p>
           </div>
@@ -2619,6 +2619,22 @@ export default function TalkLensPage() {
                 </div>
                 <p className="text-xs text-slate-500 mt-2">このサイトを友達に共有する</p>
               </div>
+
+              {/* イラストレーター紹介 */}
+              <div className="mt-6 pt-6 border-t border-slate-100">
+                <p className="text-sm text-slate-500 mb-3">このイラストを描いてくれたイラストレーターさんはこちら</p>
+                <a
+                  href="https://x.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-bold rounded-full hover:bg-slate-800 transition-all hover:scale-105 shadow-md"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                  イラストレーターさんをフォロー
+                </a>
+              </div>
             </div>
           </FadeIn>
 
@@ -2712,8 +2728,8 @@ export default function TalkLensPage() {
         {isAnalyzing && <AnalyzingOverlay />}
       <HeroSection onFileSelect={handleAnalyzeFile} isAnalyzing={isAnalyzing} />
       <CompatibilityTypesSection />
-      <FeaturesSection />
       <HowToSection />
+      <FeaturesSection />
       
       <NextActionDuel />
 

@@ -92,22 +92,18 @@ export function WritterLoginModal({ isOpen, onClose }: WritterLoginModalProps) {
           // ログインフォーム
           <>
             {/* ヘッダー */}
-            <div className="relative bg-gradient-to-br from-[#9333EA] via-[#A855F7] to-[#C084FC] p-6 text-center">
+            <div className="relative bg-gradient-to-br from-[#FDDBB4] via-[#FDE8C8] to-[#FEF0DC] p-6 text-center">
               <button 
                 onClick={onClose}
-                className="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/30 rounded-full transition-colors"
+                className="absolute top-4 right-4 p-2 bg-white/40 hover:bg-white/60 rounded-full transition-colors"
               >
-                <X className="w-5 h-5 text-white" />
+                <X className="w-5 h-5 text-amber-700" />
               </button>
               
               <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg">
-                <Trophy className="w-10 h-10 text-purple-600" />
+                <Trophy className="w-10 h-10 text-amber-500" />
               </div>
-              <h2 className="text-2xl font-black text-white mb-2">限定バッジをゲット！</h2>
-              <p className="text-white/90 text-sm">
-                Writterアカウントでログインして<br />
-                アプリで使える限定バッジを入手しよう
-              </p>
+              <h2 className="text-2xl font-black text-amber-900 mb-2">限定バッジをゲット！</h2>
             </div>
 
             {/* フォーム */}
@@ -149,7 +145,7 @@ export function WritterLoginModal({ isOpen, onClose }: WritterLoginModalProps) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold rounded-xl shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-white font-bold rounded-xl shadow-lg shadow-amber-400/25 hover:shadow-amber-400/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isLoading ? (
                   <>
