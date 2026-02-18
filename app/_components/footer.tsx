@@ -57,7 +57,7 @@ export function Footer() {
   const [showTerms, setShowTerms] = useState(false)
 
   const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://writter-project.com/talklens'
-  const shareText = 'TalkLens - LINEトーク履歴を分析して、二人の関係性を可視化できるツール！'
+  const shareText = 'ペアトーク診断 for LINE - 二人のLINEトークを診断！12種類＋1種類の中から何になるかな？'
 
   const handleShareTwitter = () => {
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`
@@ -89,9 +89,9 @@ export function Footer() {
             <span className="text-slate-300">|</span>
             <button onClick={() => setShowPrivacy(true)} className="hover:text-slate-900 transition-colors">プライバシーポリシー</button>
             <span className="text-slate-300">|</span>
-            <a href="https://golden-beam.com/contact" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">法人お問い合わせ</a>
+            <a href="https://goldenbeam.co.jp/contact/" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">法人お問い合わせ</a>
             <span className="text-slate-300">|</span>
-            <a href="https://golden-beam.com" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">運営会社</a>
+            <a href="https://goldenbeam.co.jp/" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors">運営会社</a>
           </div>
 
           {/* SNS Share Section */}

@@ -291,7 +291,7 @@ const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 // グラスモーフィズムヘッダー（スマホ用）- 16personalities風の明るいデザイン
 const GlassHeader = () => {
   const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://pairtalk.site';
-  const shareText = 'ペアトーク診断 for LINE - LINEトーク履歴を分析して、二人の関係性を診断！';
+                      const shareText = 'ペアトーク診断 for LINE - 二人のLINEトークを診断！12種類＋1種類の中から何になるかな？';
 
   const handleShare = () => {
     if (navigator.share) {
@@ -2721,7 +2721,7 @@ export default function TalkLensPage() {
                   <button
                     onClick={() => {
                       const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://writter-project.com/talklens';
-                      const shareText = 'ペアトーク診断 for LINE - LINEトーク履歴を分析して、二人の関係性を診断！';
+                      const shareText = 'ペアトーク診断 for LINE - 二人のLINEトークを診断！12種類＋1種類の中から何になるかな？';
                       const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
                       window.open(url, '_blank', 'width=550,height=420');
                     }}
@@ -2760,7 +2760,7 @@ export default function TalkLensPage() {
                   />
                 </div>
                 <a
-                  href="https://x.com"
+                  href="https://x.com/mio_ney?s=21&t=4GzdYuJCnpD9cQmMyh5ZzA"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-bold rounded-full hover:bg-slate-800 transition-all hover:scale-105 shadow-md"

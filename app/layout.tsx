@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "ペアトーク診断 for LINE",
-    description: "LINEのトーク履歴を分析して、二人の関係性を診断します",
+    description: "二人のLINEトークを診断！12種類＋1種類の中から何になるかな？",
     url: "https://pairtalk.site",
     siteName: "ペアトーク診断 for LINE",
     locale: "ja_JP",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ペアトーク診断 for LINE",
-    description: "LINEのトーク履歴を分析して、二人の関係性を診断します",
+    description: "二人のLINEトークを診断！12種類＋1種類の中から何になるかな？",
     images: ["/talklens/pairtalkOGP.png"],
   },
   icons: {
