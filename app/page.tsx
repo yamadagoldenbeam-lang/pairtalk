@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./_components/ui/avatar";
 import { ScrollArea, ScrollBar } from "./_components/ui/scroll-area";
 import { Separator } from "./_components/ui/separator";
 import { useToast } from "./_hooks/use-toast";
-import { ArrowLeft, MessageCircle, Clock, Zap, Smile, BarChart3, TrendingUp, Trophy, Phone, Moon, Sun, Heart, Sparkles, Calendar, Loader2, Menu, X, ArrowRight } from "lucide-react";
+import { ArrowLeft, MessageCircle, Clock, Zap, Smile, BarChart3, TrendingUp, Trophy, Phone, Moon, Sun, Heart, Sparkles, Calendar, Loader2, Menu, X, ArrowRight, Share2, Link } from "lucide-react";
 import { cn } from "./_lib/utils";
 import { MascotIcon } from "./_components/mascot-icon";
 import { WritterLoginModal } from "./_components/writter-login-modal";
@@ -96,6 +96,7 @@ interface AnalysisResult {
     detailedDescription: string;
     emoji: string;
     image: string;
+    reason: string; // 選ばれた理由
     metrics: {
       balanceRate: number;      // 比率（Max文字数/総文字数）
       highSpeedReplyRate: number; // 高速返信率（10分以内の返信の割合）
@@ -437,6 +438,8 @@ export default function TalkLensPage() {
   const [isWritterModalOpen, setIsWritterModalOpen] = useState(false);
   const [showAdminStats, setShowAdminStats] = useState(false);
   const [analysisCount, setAnalysisCount] = useState<number | null>(null);
+  const [dailyData, setDailyData] = useState<{ date: string; count: number }[]>([]);
+  const [mau, setMau] = useState<number | null>(null);
   const { toast } = useToast();
 
   // 隠しコマンド（Ctrl+Shift+A）で分析回数を表示
@@ -449,18 +452,30 @@ export default function TalkLensPage() {
         setShowAdminStats(true); // まずモーダルを表示
         
         try {
-          const response = await fetch('/api/analytics/count');
-          if (response.ok) {
-            const data = await response.json();
-            setAnalysisCount(data.count);
+          // 総計を取得
+          const totalResponse = await fetch('/api/analytics/count');
+          if (totalResponse.ok) {
+            const totalData = await totalResponse.json();
+            setAnalysisCount(totalData.count);
           } else {
-            const errorData = await response.json();
-            console.error('API Error:', errorData);
-            setAnalysisCount(0); // エラー時は0を表示
+            setAnalysisCount(0);
+          }
+
+          // 日ごとのデータを取得
+          const dailyResponse = await fetch('/api/analytics/count?daily=true');
+          if (dailyResponse.ok) {
+            const dailyResult = await dailyResponse.json();
+            setDailyData(dailyResult.daily || []);
+            setMau(dailyResult.mau || 0);
+          } else {
+            setDailyData([]);
+            setMau(0);
           }
         } catch (err) {
-          console.error('Failed to fetch analysis count:', err);
-          setAnalysisCount(0); // エラー時は0を表示
+          console.error('Failed to fetch analysis data:', err);
+          setAnalysisCount(0);
+          setDailyData([]);
+          setMau(0);
         }
       }
     };
@@ -1691,12 +1706,37 @@ export default function TalkLensPage() {
       finalDetailedDescription = finalDetailedDescription.replace(/{user1}/g, user1Name).replace(/{user2}/g, user2Name);
     }
     
+    // 選ばれた理由を生成（卵タイプは除外）
+    const generateReason = (
+      balanceJudgment: 'equal' | 'bias',
+      tempoJudgment: 'highSpeed' | 'leisurely',
+      expressionJudgment: 'story' | 'resonance' | 'peace',
+      typeKey: string
+    ): string => {
+      // 卵タイプの場合は空文字列を返す
+      if (typeKey === 'egg') {
+        return '';
+      }
+      
+      const balanceType = balanceJudgment === 'equal' ? 'バランス型' : '偏り型';
+      const tempoType = tempoJudgment === 'highSpeed' ? '高速型' : 'まったり型';
+      const expressionType = 
+        expressionJudgment === 'story' ? '長文型' :
+        expressionJudgment === 'resonance' ? 'メディア型' :
+        '短文型';
+      
+      return `このタイプが選ばれたペアは...\nメッセージ比率：${balanceType}\n返信スピード：${tempoType}\n表現スタイル：${expressionType}`;
+    };
+    
+    const reason = generateReason(balanceJudgment, tempoJudgment, expressionJudgment, relationshipTypeKey);
+    
     const relationshipType = {
       resultType: relationshipTypeData.name,
       description: finalDescription,
       detailedDescription: finalDetailedDescription,
       emoji: relationshipTypeData.emoji,
       image: relationshipTypeData.image,
+      reason: reason,
       metrics: {
         balanceRate: Math.round(balanceRate * 100) / 100,
         highSpeedReplyRate: Math.round(highSpeedReplyRate * 100) / 100,
@@ -2202,13 +2242,29 @@ export default function TalkLensPage() {
   // 隠しコマンド：分析回数表示モーダル（共通で表示）
   const AdminStatsModal = () => {
     if (!showAdminStats) return null;
+
+    // 折れ線グラフの描画用データを準備
+    const maxCount = dailyData.length > 0 ? Math.max(...dailyData.map(d => d.count), 1) : 1;
+    const chartWidth = 600;
+    const chartHeight = 200;
+    const padding = 40;
+    const graphWidth = chartWidth - padding * 2;
+    const graphHeight = chartHeight - padding * 2;
+
+    // 折れ線のパスを生成
+    const points = dailyData.map((d, i) => {
+      const x = padding + (i / (dailyData.length - 1 || 1)) * graphWidth;
+      const y = padding + graphHeight - (d.count / maxCount) * graphHeight;
+      return `${x},${y}`;
+    }).join(' ');
+
     return createPortal(
       <div 
         className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
         onClick={() => setShowAdminStats(false)}
       >
         <div 
-          className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
+          className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-6 text-center relative">
@@ -2221,12 +2277,114 @@ export default function TalkLensPage() {
             <h2 className="text-2xl font-black text-white mb-2">📊 分析統計</h2>
             <p className="text-white/90 text-sm">本番環境での分析実行回数</p>
           </div>
-          <div className="p-8 text-center">
-            <div className="text-6xl font-black text-purple-600 mb-4">
-              {analysisCount !== null ? analysisCount.toLocaleString() : '---'}
+          <div className="p-8">
+            {/* 総計とMAU */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="text-center p-4 bg-purple-50 rounded-xl">
+                <p className="text-sm text-slate-600 mb-2">総分析回数</p>
+                <div className="text-3xl font-black text-purple-600">
+                  {analysisCount !== null ? analysisCount.toLocaleString() : '---'}
+                </div>
+              </div>
+              <div className="text-center p-4 bg-pink-50 rounded-xl">
+                <p className="text-sm text-slate-600 mb-2">MAU（過去30日）</p>
+                <div className="text-3xl font-black text-pink-600">
+                  {mau !== null ? mau.toLocaleString() : '---'}
+                </div>
+              </div>
             </div>
-            <p className="text-slate-600 text-lg font-medium mb-6">回の分析が実行されました</p>
-            <p className="text-xs text-slate-400">（Ctrl+Shift+A で再表示）</p>
+
+            {/* 折れ線グラフ */}
+            {dailyData.length > 0 && (
+              <div className="mb-4">
+                <h3 className="text-lg font-bold text-slate-800 mb-4 text-center">過去30日間の分析回数推移</h3>
+                <div className="bg-slate-50 rounded-xl p-4 overflow-x-auto">
+                  <svg width={chartWidth} height={chartHeight} className="w-full" viewBox={`0 0 ${chartWidth} ${chartHeight}`}>
+                    {/* グリッド線 */}
+                    {[0, 0.25, 0.5, 0.75, 1].map((ratio) => {
+                      const y = padding + graphHeight - (ratio * graphHeight);
+                      return (
+                        <line
+                          key={ratio}
+                          x1={padding}
+                          y1={y}
+                          x2={padding + graphWidth}
+                          y2={y}
+                          stroke="#e2e8f0"
+                          strokeWidth="1"
+                        />
+                      );
+                    })}
+                    
+                    {/* 折れ線 */}
+                    {dailyData.length > 1 && (
+                      <polyline
+                        points={points}
+                        fill="none"
+                        stroke="#8b5cf6"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    )}
+                    
+                    {/* データポイント */}
+                    {dailyData.map((d, i) => {
+                      const x = padding + (i / (dailyData.length - 1 || 1)) * graphWidth;
+                      const y = padding + graphHeight - (d.count / maxCount) * graphHeight;
+                      return (
+                        <circle
+                          key={i}
+                          cx={x}
+                          cy={y}
+                          r="4"
+                          fill="#8b5cf6"
+                        />
+                      );
+                    })}
+                    
+                    {/* X軸ラベル（日付） */}
+                    {dailyData.length > 0 && dailyData.map((d, i) => {
+                      if (i % 5 !== 0 && i !== dailyData.length - 1) return null;
+                      const x = padding + (i / (dailyData.length - 1 || 1)) * graphWidth;
+                      const date = new Date(d.date);
+                      const month = date.getMonth() + 1;
+                      const day = date.getDate();
+                      return (
+                        <text
+                          key={i}
+                          x={x}
+                          y={chartHeight - 10}
+                          textAnchor="middle"
+                          className="text-xs fill-slate-600"
+                        >
+                          {`${month}/${day}`}
+                        </text>
+                      );
+                    })}
+                    
+                    {/* Y軸ラベル */}
+                    {[0, 0.5, 1].map((ratio) => {
+                      const y = padding + graphHeight - (ratio * graphHeight);
+                      const value = Math.round(ratio * maxCount);
+                      return (
+                        <text
+                          key={ratio}
+                          x={padding - 10}
+                          y={y + 4}
+                          textAnchor="end"
+                          className="text-xs fill-slate-600"
+                        >
+                          {value}
+                        </text>
+                      );
+                    })}
+                  </svg>
+                </div>
+              </div>
+            )}
+
+            <p className="text-xs text-slate-400 text-center mt-4">（Ctrl+Shift+A で再表示）</p>
           </div>
         </div>
       </div>,
@@ -2314,6 +2472,15 @@ export default function TalkLensPage() {
                 {results.relationshipType.detailedDescription}
               </p>
             </div>
+            
+            {/* 選ばれた理由（卵タイプは除外） */}
+            {results.relationshipType.reason && (
+              <div className="bg-amber-50 rounded-xl p-6 mt-4 border-2 border-amber-200">
+                <p className="text-slate-700 leading-relaxed text-sm whitespace-pre-line">
+                  {results.relationshipType.reason}
+                </p>
+              </div>
+            )}
           </div>
           </FadeIn>
 
@@ -2701,8 +2868,7 @@ export default function TalkLensPage() {
                 トーク診断は以上だよ！<br />遊んでくれてありがとう！
               </h3>
               <p className="text-slate-600 leading-relaxed mb-8">
-                またトークをたくさんしたあとにもう一度分析してみてね！<br/>
-                他の人とのトークでは違う結果になることも！？
+                またトークをたくさんしたあとにもう一度分析してみてね！
               </p>
               
               {/* TOPに戻るボタン */}
@@ -2713,40 +2879,57 @@ export default function TalkLensPage() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                   <ArrowLeft className="w-5 h-5 relative z-10" />
-                  <span className="relative z-10">TOPに戻る</span>
+                  <span className="relative z-10">別のトークを診断してみる！</span>
                 </button>
 
                 {/* このサイトを友達に共有する */}
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => {
-                      const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://writter-project.com/talklens';
-                      const shareText = 'ペアトーク診断 for LINE - 二人のLINEトークを診断！12種類＋1種類の中から何になるかな？';
-                      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-                      window.open(url, '_blank', 'width=550,height=420');
-                    }}
-                    className="w-12 h-12 flex items-center justify-center rounded-full bg-black text-white hover:bg-slate-800 transition-all hover:scale-110 shadow-lg"
-                    aria-label="Xでシェア"
-                  >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => {
-                      const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://writter-project.com/talklens';
-                      const url = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}`;
-                      window.open(url, '_blank', 'width=550,height=420');
-                    }}
-                    className="w-12 h-12 flex items-center justify-center rounded-full bg-[#06C755] text-white hover:bg-[#05b04c] transition-all hover:scale-110 shadow-lg"
-                    aria-label="LINEでシェア"
-                  >
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.105.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
-                    </svg>
-                  </button>
+                <div className="flex flex-col items-center gap-4 w-full">
+                  <p className="text-lg font-bold text-slate-800 mb-2">このサイトを友達に共有する！</p>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => {
+                        const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://pairtalk.site';
+                        const shareText = 'ペアトーク診断 for LINE - 二人のLINEトークを診断！12種類＋1種類の中から何になるかな？';
+                        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+                        window.open(url, '_blank', 'width=550,height=420');
+                      }}
+                      className="w-14 h-14 flex items-center justify-center rounded-full bg-black text-white hover:bg-slate-800 transition-all hover:scale-110 shadow-lg"
+                      aria-label="Xでシェア"
+                    >
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => {
+                        const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://pairtalk.site';
+                        const url = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}`;
+                        window.open(url, '_blank', 'width=550,height=420');
+                      }}
+                      className="w-14 h-14 flex items-center justify-center rounded-full bg-[#06C755] text-white hover:bg-[#05b04c] transition-all hover:scale-110 shadow-lg"
+                      aria-label="LINEでシェア"
+                    >
+                      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.105.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={async () => {
+                        const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://pairtalk.site';
+                        try {
+                          await navigator.clipboard.writeText(shareUrl);
+                          alert('URLをコピーしました！');
+                        } catch (err) {
+                          console.error('Failed to copy:', err);
+                        }
+                      }}
+                      className="w-14 h-14 flex items-center justify-center rounded-full bg-cyan-500 text-white hover:bg-cyan-600 transition-all hover:scale-110 shadow-lg"
+                      aria-label="URLをコピー"
+                    >
+                      <Link className="w-6 h-6" />
+                    </button>
+                  </div>
                 </div>
-                <p className="text-xs text-slate-500 mt-2">このサイトを友達に共有する</p>
               </div>
 
               {/* イラストレーター紹介 */}
@@ -2756,7 +2939,7 @@ export default function TalkLensPage() {
                   <img 
                     src="/talklens/baby.png"
                     alt="イラストレーター"
-                    className="w-32 h-32 object-contain"
+                    className="w-32 h-32 object-contain animate-float"
                   />
                 </div>
                 <a
@@ -2771,6 +2954,15 @@ export default function TalkLensPage() {
                   イラストレーターさんをフォロー
                 </a>
               </div>
+            </div>
+          </FadeIn>
+          
+          {/* プレミアム解析モード告知 */}
+          <FadeIn delay={800}>
+            <div className="bg-slate-50 rounded-xl p-4 text-center border border-slate-200">
+              <p className="text-slate-600 text-sm font-medium">
+                プレミアム解析モードも鋭意開発中！
+              </p>
             </div>
           </FadeIn>
 
