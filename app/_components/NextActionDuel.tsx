@@ -215,11 +215,6 @@ export function NextActionDuel() {
           </div>
         </div>
 
-      {!isRealtimeAvailable && (
-        <div className="mb-6 p-4 rounded-2xl border border-amber-200 bg-amber-50 text-amber-900 text-sm text-center">
-          投票機能は現在準備中です。
-        </div>
-      )}
 
       <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 items-stretch">
         <motion.article

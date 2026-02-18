@@ -388,8 +388,7 @@ const CompatibilityTypesSection = () => {
         <div className="max-w-2xl mx-auto mt-12 px-4">
           <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6 text-center shadow-sm">
             <p className="text-amber-900 font-bold text-base leading-relaxed">
-              トーク履歴が少ない場合は、診断ができません。その場合は、卵タイプと表示されます。<br />
-              たくさんトークしてから診断してね！
+              トーク履歴が少ない場合は、診断ができません。その場合は、卵タイプと表示されます。たくさんトークしてから診断してね！
             </p>
           </div>
         </div>
@@ -403,7 +402,39 @@ export default function TalkLensPage() {
   const [isShowingSuccess, setIsShowingSuccess] = useState(false);
   const [results, setResults] = useState<AnalysisResult | null>(null);
   const [isWritterModalOpen, setIsWritterModalOpen] = useState(false);
+  const [showAdminStats, setShowAdminStats] = useState(false);
+  const [analysisCount, setAnalysisCount] = useState<number | null>(null);
   const { toast } = useToast();
+
+  // 隠しコマンド（Ctrl+Shift+A）で分析回数を表示
+  useEffect(() => {
+    const handleKeyDown = async (e: KeyboardEvent) => {
+      // デバッグ用：キー入力確認
+      if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        console.log('隠しコマンド検出: Ctrl+Shift+A');
+        setShowAdminStats(true); // まずモーダルを表示
+        
+        try {
+          const response = await fetch('/api/analytics/count');
+          if (response.ok) {
+            const data = await response.json();
+            setAnalysisCount(data.count);
+          } else {
+            const errorData = await response.json();
+            console.error('API Error:', errorData);
+            setAnalysisCount(0); // エラー時は0を表示
+          }
+        } catch (err) {
+          console.error('Failed to fetch analysis count:', err);
+          setAnalysisCount(0); // エラー時は0を表示
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // 通話時間を秒に変換するヘルパー（日英両対応）
   const parseCallDuration = (content: string): number => {
@@ -1773,6 +1804,18 @@ export default function TalkLensPage() {
       
       const analysisResult = await analyzeMessages(messages);
       
+      // 分析回数をカウント（エラーが発生しても分析結果は表示）
+      try {
+        const response = await fetch('/api/analytics/count', { method: 'POST' });
+        if (response.ok) {
+          const data = await response.json();
+          setAnalysisCount(data.count);
+        }
+      } catch (err) {
+        // カウントエラーは無視（分析結果は表示する）
+        console.error('Failed to increment analysis count:', err);
+      }
+      
       // 分析完了：まず結果をセットしてからShine.gifを表示
       // これにより、GIFの背景が結果ページになる
       setResults(analysisResult);
@@ -2102,6 +2145,41 @@ export default function TalkLensPage() {
           </div>
         </div>
       </div>
+    );
+  };
+
+  // 隠しコマンド：分析回数表示モーダル（共通で表示）
+  const AdminStatsModal = () => {
+    if (!showAdminStats) return null;
+    return createPortal(
+      <div 
+        className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+        onClick={() => setShowAdminStats(false)}
+      >
+        <div 
+          className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-6 text-center relative">
+            <button 
+              onClick={() => setShowAdminStats(false)}
+              className="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/30 rounded-full transition-colors"
+            >
+              <X className="w-5 h-5 text-white" />
+            </button>
+            <h2 className="text-2xl font-black text-white mb-2">📊 分析統計</h2>
+            <p className="text-white/90 text-sm">本番環境での分析実行回数</p>
+          </div>
+          <div className="p-8 text-center">
+            <div className="text-6xl font-black text-purple-600 mb-4">
+              {analysisCount !== null ? analysisCount.toLocaleString() : '---'}
+            </div>
+            <p className="text-slate-600 text-lg font-medium mb-6">回の分析が実行されました</p>
+            <p className="text-xs text-slate-400">（Ctrl+Shift+A で再表示）</p>
+          </div>
+        </div>
+      </div>,
+      document.body
     );
   };
 
@@ -2717,6 +2795,7 @@ export default function TalkLensPage() {
           onClose={() => setIsWritterModalOpen(false)} 
         />
       </div>
+      <AdminStatsModal />
       </>
     );
   }
@@ -2735,6 +2814,7 @@ export default function TalkLensPage() {
 
       <Footer />
       </main>
+      <AdminStatsModal />
     </>
   );
 }
