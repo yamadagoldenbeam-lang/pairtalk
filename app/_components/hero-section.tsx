@@ -98,19 +98,19 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
           </div>
 
           {/* Drop Zone */}
-          <div
+          <label
+            htmlFor="file-input"
             onDrop={handleDrop}
             onDragOver={(e) => {
               e.preventDefault()
               setIsDragOver(true)
             }}
             onDragLeave={() => setIsDragOver(false)}
-            onClick={() => fileInputRef.current?.click()}
             className={`flex flex-col items-center justify-center h-64 px-4 py-8 cursor-pointer transition-all duration-300 ${
               isDragOver ? "bg-cyan-50/50 border-2 border-cyan-500 border-dashed" : "bg-transparent hover:bg-slate-50 border-2 border-transparent border-dashed hover:border-slate-200"
             }`}
           >
-            <input ref={fileInputRef} type="file" accept=".txt,.tsx,text/plain" onChange={handleFileChange} className="hidden" />
+            <input id="file-input" ref={fileInputRef} type="file" accept=".txt,.tsx,text/plain" onChange={handleFileChange} className="hidden" />
 
             {file ? (
               <div className="flex flex-col items-center gap-4 text-foreground animate-in fade-in zoom-in duration-300">
@@ -133,17 +133,17 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
                 </div>
               </div>
             )}
-          </div>
+          </label>
 
           {/* Footer */}
           <div className="flex flex-col md:flex-row items-center justify-between px-6 py-4 border-t border-border bg-slate-50 gap-4">
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+            <label
+              htmlFor="file-input"
+              className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
             >
               <FileText className="w-4 h-4" />
               ファイルを選択 (形式：.txt)
-            </button>
+            </label>
             <button
               onClick={handleStartAnalysis}
               disabled={!file || isAnalyzing}
