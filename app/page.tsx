@@ -2865,7 +2865,7 @@ export default function TalkLensPage() {
                 />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-4">
-                トーク診断は以上だよ！<br />遊んでくれてありがとう！
+                トーク診断は以上だよ！<br />遊んでくれてありがとう！<br />ペアの人にスクショを送ってあげてね！
               </h3>
               <p className="text-slate-600 leading-relaxed mb-8">
                 またトークをたくさんしたあとにもう一度分析してみてね！
@@ -2932,69 +2932,71 @@ export default function TalkLensPage() {
                 </div>
               </div>
 
+            </div>
+          </FadeIn>
+          
+          {/* イラストレーター紹介 ＋ 新機能開発中告知（横並び） */}
+          <FadeIn delay={800}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
               {/* イラストレーター紹介 */}
-              <div className="mt-6 pt-6 border-t border-slate-100">
-                <p className="text-sm text-slate-500 mb-3">イラストを描いてくれたイラストレーターさん</p>
-                <div className="flex justify-center mb-3">
+              <div className="bg-slate-50 rounded-xl p-6 text-center border border-slate-200 flex flex-col">
+                <h3 className="text-lg font-black text-slate-800 mb-4">描いてくれたイラストレーターさんはこちら</h3>
+                <div className="flex justify-center mb-4">
                   <img 
                     src="/talklens/baby.png"
                     alt="イラストレーター"
                     className="w-32 h-32 object-contain animate-float"
                   />
                 </div>
-                <a
-                  href="https://x.com/mio_ney?s=21&t=4GzdYuJCnpD9cQmMyh5ZzA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-bold rounded-full hover:bg-slate-800 transition-all hover:scale-105 shadow-md"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                  イラストレーターさんをフォロー
-                </a>
-              </div>
-            </div>
-          </FadeIn>
-          
-          {/* プレミアム解析モード告知 */}
-          <FadeIn delay={800}>
-            <div className="bg-slate-50 rounded-xl p-4 text-center border border-slate-200">
-              <p className="text-slate-600 text-sm font-medium">
-                プレミアム解析モードも鋭意開発中！
-              </p>
-            </div>
-          </FadeIn>
-
-          {/* Writterカード */}
-          <FadeIn delay={700}>
-            <div className="relative rounded-[2rem] p-6 md:p-8 border-4 border-white bg-gradient-to-br from-cyan-50 via-white to-blue-50 shadow-[0_10px_40px_-10px_rgba(34,211,238,0.3)] overflow-hidden group hover:shadow-[0_20px_50px_-10px_rgba(34,211,238,0.4)] hover:-translate-y-1 transition-all duration-300">
-              <div className="flex items-center gap-2 text-cyan-600 text-sm font-bold bg-white/80 backdrop-blur-sm w-fit px-3 py-1 rounded-full shadow-sm mb-4">
-                iPhone/Androidストアで超大好評配信中！
-              </div>
-              <h3 className="text-xl md:text-2xl font-black text-slate-800 mb-6">こころ落ち着く、優しいSNS。</h3>
-
-              <div className="mt-6 rounded-2xl overflow-hidden border-4 border-white shadow-md mb-6">
-                <div className="aspect-video bg-slate-100 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-500">
-                  <img 
-                    src="/talklens/A.png"
-                    alt="Writter"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="flex justify-center mt-auto">
+                  <a
+                    href="https://x.com/mio_ney?s=21&t=4GzdYuJCnpD9cQmMyh5ZzA"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-white bg-black hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl hover:scale-105 border border-slate-700"
+                    style={{
+                      background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)',
+                      boxShadow: '0 4px 14px 0 rgba(0,0,0,0.25), inset 0 1px 0 0 rgba(255,255,255,0.1)',
+                    }}
+                  >
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    イラストレーターさんをフォロー
+                  </a>
                 </div>
               </div>
 
-              <a
-                href="https://writter.jp/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-4 hover:from-cyan-400 hover:to-blue-400 hover:shadow-xl hover:shadow-cyan-200/50 transition-all inline-flex items-center justify-center gap-2 shadow-lg shadow-cyan-200/30"
-              >
-                ダウンロードはこちら
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
+              {/* 新機能開発中告知 */}
+              <div className="bg-slate-50 rounded-xl p-6 text-center border border-slate-200 flex flex-col">
+              <p className="text-slate-600 text-sm font-medium mb-3">
+                ・彼氏診断してみた診断<br />
+                ・今カレのモラハラ度診断<br />
+                ・友達の地雷男診断<br />
+                など新機能を鋭意開発中！
+              </p>
+              <p className="text-slate-600 text-sm font-medium mb-4">
+                続報は運営会社公式Xを確認してね！<br />
+                きみに幸あれ！
+              </p>
+              <div className="flex justify-center mt-auto">
+                <a
+                  href="https://x.com/writter_world"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-white bg-black hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl hover:scale-105 border border-slate-700"
+                  style={{
+                    background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)',
+                    boxShadow: '0 4px 14px 0 rgba(0,0,0,0.25), inset 0 1px 0 0 rgba(255,255,255,0.1)',
+                  }}
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                  公式Xをフォロー
+                </a>
+              </div>
+              </div>
             </div>
           </FadeIn>
 
@@ -3067,6 +3069,67 @@ export default function TalkLensPage() {
               </section>
             </FadeIn>
           )}
+
+          {/* Writterカード ＋ PicDNAカード（横並び） */}
+          <FadeIn delay={700}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              {/* Writterカード（PicDNAカードと同じデザインに合わせてある） */}
+              <div className="relative rounded-[2rem] p-6 md:p-8 border-4 border-white bg-gradient-to-br from-slate-50 via-white to-slate-50 shadow-[0_10px_40px_-10px_rgba(100,116,139,0.2)] overflow-hidden group hover:shadow-[0_20px_50px_-10px_rgba(100,116,139,0.25)] hover:-translate-y-1 transition-all duration-300">
+                <div className="flex items-center gap-2 text-slate-600 text-sm font-bold bg-white/80 backdrop-blur-sm w-fit px-3 py-1 rounded-full shadow-sm mb-4 border border-slate-200">
+                  iPhone/Androidストアで超大好評配信中！
+                </div>
+                <h3 className="text-xl md:text-2xl font-black text-slate-800 mb-6">こころ落ち着く、優しいSNS。</h3>
+
+                <div className="mt-6 rounded-2xl overflow-hidden border-4 border-white shadow-md mb-6">
+                  <div className="aspect-video bg-slate-100 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-500">
+                    <img 
+                      src="/talklens/A.png"
+                      alt="Writter"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+
+                <a
+                  href="https://writter.jp/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 hover:shadow-xl transition-all inline-flex items-center justify-center gap-2 shadow-lg"
+                >
+                  ダウンロードはこちら
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+
+              {/* PicDNAカード（元デザイン） */}
+              <div className="relative rounded-[2rem] p-6 md:p-8 border-4 border-white bg-gradient-to-br from-slate-50 via-white to-slate-50 shadow-[0_10px_40px_-10px_rgba(100,116,139,0.2)] overflow-hidden group hover:shadow-[0_20px_50px_-10px_rgba(100,116,139,0.25)] hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                <div className="flex items-center gap-2 text-slate-600 text-sm font-bold bg-white/80 backdrop-blur-sm w-fit px-3 py-1 rounded-full shadow-sm mb-4 border border-slate-200">
+                  あなたの創作権を守る、見えない証明書
+                </div>
+                <h3 className="text-xl md:text-2xl font-black text-slate-800 mb-6">画像にオリジナルを刻印しよう！</h3>
+                <div className="rounded-2xl overflow-hidden border-4 border-white shadow-md mb-6 flex-1 min-h-0">
+                  <img
+                    src="/talklens/pogp.png"
+                    alt="PicDNA - 画像に見えない刻印"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <a
+                  href="https://writter.jp/picdna/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 hover:shadow-xl transition-all inline-flex items-center justify-center gap-2 shadow-lg"
+                >
+                  詳細はこちら
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </FadeIn>
 
           <Footer />
         </div>
