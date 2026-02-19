@@ -43,7 +43,7 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
       {/* メインビジュアル - 大きく表示 */}
       <div className="w-64 h-64 md:w-80 md:h-80 mb-6 animate-float relative z-10">
         <img 
-          src="/talklens/chirupi.png" 
+          src="/talklens/TOP.png" 
           alt="トーク相性診断 メインビジュアル" 
           className="w-full h-full object-contain drop-shadow-2xl"
           loading="eager"
