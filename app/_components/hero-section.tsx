@@ -48,8 +48,11 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
           className="w-full h-full object-contain drop-shadow-2xl relative z-10"
           loading="eager"
         />
-        {/* 背景の装飾 */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-yellow-200/40 to-pink-200/40 rounded-full blur-3xl animate-pulse-slow" />
+        {/* 背景の装飾（iOS Safariのblurレンダリングバグ対策で blur-xl + will-change 使用） */}
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-yellow-200/40 to-pink-200/40 rounded-full blur-xl animate-pulse-slow"
+          style={{ willChange: 'transform' }}
+        />
       </div>
 
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 text-center leading-tight tracking-tight">
