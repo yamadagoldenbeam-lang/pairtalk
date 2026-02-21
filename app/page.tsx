@@ -310,8 +310,8 @@ const GlassHeader = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[9999] md:hidden" style={{ WebkitTransform: 'translateZ(0)', position: 'fixed' }}>
-        <div className="backdrop-blur-xl bg-white border-b border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)]">
+      <header className="fixed top-0 left-0 right-0 z-[9999] md:hidden">
+        <div className="bg-white border-b border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)]">
           <div className="flex items-center justify-between px-4 py-3">
             {/* 中央: サイトタイトル - 左寄せ */}
             <div className="flex-1 flex items-center">

@@ -41,17 +41,12 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
   return (
     <section className="flex flex-col items-center px-4 pt-12 pb-8 relative bg-[#F0F8FF]">
       {/* メインビジュアル - 大きく表示（コンテナに明示背景でiOSの黒アーティファクト防止） */}
-      <div className="w-64 h-64 md:w-80 md:h-80 mb-6 animate-float relative bg-[#F0F8FF] isolate">
+      <div className="w-64 h-64 md:w-80 md:h-80 mb-6 animate-float relative">
         <img 
           src="/talklens/TOP.png" 
           alt="トーク相性診断 メインビジュアル" 
-          className="w-full h-full object-contain drop-shadow-2xl relative z-10"
+          className="w-full h-full object-contain drop-shadow-2xl"
           loading="eager"
-        />
-        {/* 背景の装飾（iOS Safariのblurレンダリングバグ対策で blur-xl + will-change 使用） */}
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-yellow-200/40 to-pink-200/40 rounded-full blur-xl animate-pulse-slow"
-          style={{ willChange: 'transform' }}
         />
       </div>
 
