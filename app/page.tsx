@@ -3134,7 +3134,7 @@ export default function TalkLensPage() {
           onClose={() => setIsWritterModalOpen(false)} 
         />
       </div>
-      <AdminStatsModal />
+      {/* <AdminStatsModal /> */}
       </>
     );
   }
@@ -3153,7 +3153,7 @@ export default function TalkLensPage() {
 
       <Footer />
       </main>
-      <AdminStatsModal />
+      {/* <AdminStatsModal /> */}
     </>
   );
 }

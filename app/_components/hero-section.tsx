@@ -40,12 +40,12 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
 
   return (
     <section className="flex flex-col items-center px-4 pt-12 pb-8 relative bg-[#F0F8FF]">
-      {/* メインビジュアル - 大きく表示（アニメーション・影・透明レイヤーを全排除して黒バグを回避） */}
-      <div className="w-64 h-64 md:w-80 md:h-80 mb-6 relative bg-[#F0F8FF]">
+      {/* メインビジュアル - 大きく表示（Flexboxで配置し直し、黒バグの温床となるobject-containやrelativeを排除） */}
+      <div className="w-64 h-64 md:w-80 md:h-80 mb-6 flex items-center justify-center bg-[#F0F8FF]">
         <img 
           src="/talklens/TOP.png" 
           alt="トーク相性診断 メインビジュアル" 
-          className="w-full h-full object-contain"
+          className="max-w-full max-h-full"
           loading="eager"
         />
       </div>
