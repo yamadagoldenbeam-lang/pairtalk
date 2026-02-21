@@ -39,11 +39,9 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
   }
 
   return (
-    <section className="flex flex-col items-center px-4 pt-12 pb-8 relative bg-[#F0F8FF] overflow-hidden">
-      {/* 最背面の全面下地（残る黒アーティファクトを上書き） */}
-      <div className="absolute inset-0 z-0 bg-[#F0F8FF]" aria-hidden="true" />
+    <section className="flex flex-col items-center px-4 pt-12 pb-8 relative bg-[#F0F8FF]">
       {/* メインビジュアル - 大きく表示（コンテナに明示背景でiOSの黒アーティファクト防止） */}
-      <div className="w-64 h-64 md:w-80 md:h-80 mb-6 animate-float relative bg-[#F0F8FF] isolate z-[1]">
+      <div className="w-64 h-64 md:w-80 md:h-80 mb-6 animate-float relative bg-[#F0F8FF] isolate">
         <img 
           src="/talklens/TOP.png" 
           alt="トーク相性診断 メインビジュアル" 
