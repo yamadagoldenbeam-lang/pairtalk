@@ -57,7 +57,7 @@ export function Footer() {
   const [showTerms, setShowTerms] = useState(false)
 
   const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://writter-project.com/talklens'
-  const shareText = 'ペアトーク診断 for LINE - 二人のLINEトークを診断！12種類＋1種類の中から何になるかな？'
+  const shareText = 'ペアトーク診断 Ι LINEトークをダウンロード不要で診断しよう！12タイプの関係性がわかります！ ダウンロード不要でいますぐできる！LINEトーク履歴を分析して、二人の関係性をカンタン診断！'
 
   const handleShareTwitter = () => {
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`

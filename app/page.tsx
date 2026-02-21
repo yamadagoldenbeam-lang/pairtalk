@@ -292,12 +292,12 @@ const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 // グラスモーフィズムヘッダー（スマホ用）- 16personalities風の明るいデザイン
 const GlassHeader = () => {
   const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://pairtalk.site';
-                      const shareText = 'ペアトーク診断 for LINE - 二人のLINEトークを診断！12種類＋1種類の中から何になるかな？';
+                      const shareText = 'ペアトーク診断 Ι LINEトークをダウンロード不要で診断しよう！12タイプの関係性がわかります！ ダウンロード不要でいますぐできる！LINEトーク履歴を分析して、二人の関係性をカンタン診断！';
 
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'ペアトーク診断 for LINE',
+        title: 'ペアトーク診断 Ι LINEトークをダウンロード不要で診断しよう！12タイプの関係性がわかります！',
         text: shareText,
         url: shareUrl,
       }).catch(() => {});
@@ -2889,7 +2889,7 @@ export default function TalkLensPage() {
                     <button
                       onClick={() => {
                         const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://pairtalk.site';
-                        const shareText = 'ペアトーク診断 for LINE - 二人のLINEトークを診断！12種類＋1種類の中から何になるかな？';
+                        const shareText = 'ペアトーク診断 Ι LINEトークをダウンロード不要で診断しよう！12タイプの関係性がわかります！ ダウンロード不要でいますぐできる！LINEトーク履歴を分析して、二人の関係性をカンタン診断！';
                         const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
                         window.open(url, '_blank', 'width=550,height=420');
                       }}

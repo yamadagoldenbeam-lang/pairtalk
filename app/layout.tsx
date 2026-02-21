@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ペアトーク診断 for LINE",
-  description: "LINEのトーク履歴を分析して、二人の関係性をカンタン診断！",
+  title: "ペアトーク診断 Ι LINEトークをダウンロード不要で診断しよう！12タイプの関係性がわかります！",
+  description: "ダウンロード不要でいますぐできる！LINEトーク履歴を分析して、二人の関係性をカンタン診断！ 安心分析. AI読み込みなし、サーバー保存もしないので、運営も見れない仕組みです！",
   keywords: ["ペアトーク履歴診断", "ペアトーク診断", "LINE診断", "トーク履歴分析", "会話分析", "相性診断", "Writter project"],
   authors: [{ name: "株式会社GOLDENBEAM" }],
   creator: "株式会社GOLDENBEAM",
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "ペアトーク診断 for LINE",
-    description: "二人のLINEトークを診断！12種類＋1種類の中から何になるかな？",
+    title: "ペアトーク診断 Ι LINEトークをダウンロード不要で診断しよう！12タイプの関係性がわかります！",
+    description: "ダウンロード不要でいますぐできる！LINEトーク履歴を分析して、二人の関係性をカンタン診断！ 安心分析. AI読み込みなし、サーバー保存もしないので、運営も見れない仕組みです！",
     url: "https://pairtalk.site",
     siteName: "ペアトーク診断 for LINE",
     locale: "ja_JP",
@@ -42,14 +42,14 @@ export const metadata: Metadata = {
         url: "/talklens/pairtalkOGP.png",
         width: 1200,
         height: 630,
-        alt: "ペアトーク診断 for LINE",
+        alt: "ペアトーク診断 Ι LINEトークをダウンロード不要で診断しよう！12タイプの関係性がわかります！",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ペアトーク診断 for LINE",
-    description: "二人のLINEトークを診断！12種類＋1種類の中から何になるかな？",
+    title: "ペアトーク診断 Ι LINEトークをダウンロード不要で診断しよう！12タイプの関係性がわかります！",
+    description: "ダウンロード不要でいますぐできる！LINEトーク履歴を分析して、二人の関係性をカンタン診断！ 安心分析. AI読み込みなし、サーバー保存もしないので、運営も見れない仕組みです！",
     images: ["/talklens/pairtalkOGP.png"],
   },
   icons: {
@@ -70,8 +70,8 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "ペアトーク診断 for LINE",
-    "description": "LINEのトーク履歴を分析して、二人の関係性をカンタン診断！",
+    "name": "ペアトーク診断 Ι LINEトークをダウンロード不要で診断しよう！12タイプの関係性がわかります！",
+    "description": "ダウンロード不要でいますぐできる！LINEトーク履歴を分析して、二人の関係性をカンタン診断！ 安心分析. AI読み込みなし、サーバー保存もしないので、運営も見れない仕組みです！",
     "url": "https://pairtalk.site",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web",
@@ -96,7 +96,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="ja">
+    <html lang="ja" style={{ colorScheme: 'light' }}>
       <head>
         <meta name="google-site-verification" content="i9njDcabqKr4_U4SunD--Dp4f7UDpV2dSOtTr5M7IfI" />
         <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet" />
