@@ -442,41 +442,41 @@ export default function TalkLensPage() {
   const [mau, setMau] = useState<number | null>(null);
   const { toast } = useToast();
 
-  // 隠しコマンド（Ctrl+Shift+A）で分析回数を表示 → 一旦無効化（分析データのカウント・保存はAPIで継続）
-  // useEffect(() => {
-  //   const handleKeyDown = async (e: KeyboardEvent) => {
-  //     if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
-  //       e.preventDefault();
-  //       console.log('隠しコマンド検出: Ctrl+Shift+A');
-  //       setShowAdminStats(true);
-  //       try {
-  //         const totalResponse = await fetch('/api/analytics/count');
-  //         if (totalResponse.ok) {
-  //           const totalData = await totalResponse.json();
-  //           setAnalysisCount(totalData.count);
-  //         } else {
-  //           setAnalysisCount(0);
-  //         }
-  //         const dailyResponse = await fetch('/api/analytics/count?daily=true');
-  //         if (dailyResponse.ok) {
-  //           const dailyResult = await dailyResponse.json();
-  //           setDailyData(dailyResult.daily || []);
-  //           setMau(dailyResult.mau || 0);
-  //         } else {
-  //           setDailyData([]);
-  //           setMau(0);
-  //         }
-  //       } catch (err) {
-  //         console.error('Failed to fetch analysis data:', err);
-  //         setAnalysisCount(0);
-  //         setDailyData([]);
-  //         setMau(0);
-  //       }
-  //     }
-  //   };
-  //   window.addEventListener('keydown', handleKeyDown);
-  //   return () => window.removeEventListener('keydown', handleKeyDown);
-  // }, []);
+  // 隠しコマンド（Ctrl+Shift+A）で分析回数を表示
+  useEffect(() => {
+    const handleKeyDown = async (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        console.log('隠しコマンド検出: Ctrl+Shift+A');
+        setShowAdminStats(true);
+        try {
+          const totalResponse = await fetch('/api/analytics/count');
+          if (totalResponse.ok) {
+            const totalData = await totalResponse.json();
+            setAnalysisCount(totalData.count);
+          } else {
+            setAnalysisCount(0);
+          }
+          const dailyResponse = await fetch('/api/analytics/count?daily=true');
+          if (dailyResponse.ok) {
+            const dailyResult = await dailyResponse.json();
+            setDailyData(dailyResult.daily || []);
+            setMau(dailyResult.mau || 0);
+          } else {
+            setDailyData([]);
+            setMau(0);
+          }
+        } catch (err) {
+          console.error('Failed to fetch analysis data:', err);
+          setAnalysisCount(0);
+          setDailyData([]);
+          setMau(0);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // 通話時間を秒に変換するヘルパー（日英両対応）
   const parseCallDuration = (content: string): number => {
@@ -3133,8 +3133,8 @@ export default function TalkLensPage() {
           isOpen={isWritterModalOpen} 
           onClose={() => setIsWritterModalOpen(false)} 
         />
+        <AdminStatsModal />
       </div>
-      {/* <AdminStatsModal /> */}
       </>
     );
   }
@@ -3153,7 +3153,7 @@ export default function TalkLensPage() {
 
       <Footer />
       </main>
-      {/* <AdminStatsModal /> */}
+      <AdminStatsModal />
     </>
   );
 }

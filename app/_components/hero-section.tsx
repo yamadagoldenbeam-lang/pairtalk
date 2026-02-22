@@ -59,7 +59,7 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
 
       {/* 安心メッセージ - 刷新されたデザイン */}
       <div className="w-full max-w-xl mx-auto mb-2">
-        <div className="bg-white/80 backdrop-blur-sm border border-cyan-100 rounded-2xl p-6 text-center shadow-sm relative overflow-hidden">
+        <div className="bg-white border border-cyan-100 rounded-2xl p-6 text-center shadow-sm relative">
           {/* Hero画像 */}
           <div className="flex justify-center mb-4">
             <img 
