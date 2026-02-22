@@ -40,7 +40,22 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
 
   return (
     <section className="flex flex-col items-center px-4 pt-12 pb-8 relative bg-[#F0F8FF]">
-      {/* 【診断中】ロゴ・タイトル・サブタイトル 一時非表示 */}
+      {/* メインビジュアル */}
+      <div className="w-64 h-64 md:w-80 md:h-80 mb-6 flex items-center justify-center bg-[#F0F8FF]">
+        <img 
+          src="/talklens/TOP.png" 
+          alt="トーク相性診断 メインビジュアル" 
+          className="max-w-full max-h-full"
+          loading="eager"
+        />
+      </div>
+
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 text-center leading-tight tracking-tight">
+        ペアトーク診断 for LINE
+      </h1>
+      <p className="text-slate-600 text-lg md:text-xl font-medium mb-12 text-center text-balance">
+        LINEトーク履歴を分析して、二人の関係性をカンタン診断！
+      </p>
 
       {/* 安心メッセージ - 刷新されたデザイン */}
       <div className="w-full max-w-xl mx-auto mb-2">

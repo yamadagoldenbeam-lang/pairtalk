@@ -365,8 +365,8 @@ const CompatibilityTypesSection = () => {
     <section className="relative py-24 overflow-hidden">
       {/* 背景グラデーション */}
       <div className="absolute inset-0" style={{ backgroundColor: '#F5F9FB' }} />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-200/20 rounded-full" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full" />
       
       <div className="relative max-w-6xl mx-auto px-4">
         {/* セクションヘッダー */}
@@ -3141,7 +3141,7 @@ export default function TalkLensPage() {
 
   return (
     <>
-      {/* 【診断中】GlassHeader 一時非表示 */}
+      <GlassHeader />
       <main className="min-h-screen" style={{ backgroundColor: '#F0F8FF' }}>
         {isAnalyzing && <AnalyzingOverlay />}
         <HeroSection onFileSelect={handleAnalyzeFile} isAnalyzing={isAnalyzing} />
