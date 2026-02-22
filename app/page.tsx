@@ -3141,10 +3141,15 @@ export default function TalkLensPage() {
 
   return (
     <>
-      {/* 【診断中】GlassHeader・HeroSection一時削除 - 黒バグ切り分け用 */}
-      <main className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: '#F0F8FF' }}>
-        <h1 className="text-4xl font-black text-slate-900 mb-4 text-center">ペアトーク診断 for LINE</h1>
-        <p className="text-slate-600 text-lg text-center">LINEトーク履歴を分析して、二人の関係性をカンタン診断！</p>
+      {/* 【診断中】GlassHeader 一時非表示 */}
+      <main className="min-h-screen" style={{ backgroundColor: '#F0F8FF' }}>
+        {isAnalyzing && <AnalyzingOverlay />}
+        <HeroSection onFileSelect={handleAnalyzeFile} isAnalyzing={isAnalyzing} />
+        <CompatibilityTypesSection />
+        <HowToSection />
+        <FeaturesSection />
+        <NextActionDuel />
+        <Footer />
       </main>
       <AdminStatsModal />
     </>
