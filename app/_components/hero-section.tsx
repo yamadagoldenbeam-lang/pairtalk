@@ -60,12 +60,12 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
       {/* 安心メッセージ - 刷新されたデザイン */}
       <div className="w-full max-w-xl mx-auto mb-2">
         <div className="bg-white border border-cyan-100 rounded-2xl p-6 text-center shadow-sm relative">
-          {/* Hero画像 */}
+          {/* Hero画像（サイズ変更時はここで max-w/max-h を調整） */}
           <div className="flex justify-center mb-4">
             <img 
               src="/talklens/hero.png" 
               alt="安心分析" 
-              className="w-32 h-32 object-contain drop-shadow-lg"
+              className="max-w-72 max-h-40 md:max-w-md md:max-h-56 lg:max-w-lg lg:max-h-64 w-auto h-auto object-contain drop-shadow-lg"
             />
           </div>
           
