@@ -39,9 +39,9 @@ export function HeroSection({ onFileSelect, isAnalyzing }: HeroSectionProps) {
   }
 
   return (
-    <section className="flex flex-col items-center px-4 pt-12 pb-8 relative bg-[#F0F8FF]">
+    <section className="flex flex-col items-center px-4 pt-12 pb-8 relative bg-[#FFF0F5]">
       {/* メインビジュアル */}
-      <div className="w-64 h-64 md:w-80 md:h-80 mb-6 flex items-center justify-center bg-[#F0F8FF]">
+      <div className="w-64 h-64 md:w-80 md:h-80 mb-6 flex items-center justify-center bg-[#FFF0F5]">
         <img 
           src="/talklens/TOP.png" 
           alt="トーク相性診断 メインビジュアル" 

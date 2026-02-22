@@ -179,8 +179,8 @@ export function NextActionDuel() {
   };
 
   return (
-    <section className="py-12 md:py-24 w-full bg-gradient-to-b from-[#F0F8FF] to-slate-50 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#F0F8FF] to-transparent z-10" />
+    <section className="py-12 md:py-24 w-full bg-gradient-to-b from-[#FFF0F5] to-slate-50 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#FFF0F5] to-transparent z-10" />
       
       <div className="max-w-6xl mx-auto px-4 relative z-20">
         <div className="text-center mb-16">

@@ -2390,7 +2390,7 @@ export default function TalkLensPage() {
     return (
       <>
         {isShowingSuccess && <SuccessOverlay />}
-        <div className="min-h-screen animate-fade-in-up" style={{ backgroundColor: '#F0F8FF' }}>
+        <div className="min-h-screen animate-fade-in-up" style={{ backgroundColor: '#FFF0F5' }}>
         {/* リッチなヘッダー - 動的エフェクト付き */}
         <div className="relative overflow-hidden bg-gradient-to-br from-[#00BFFF] via-[#00D4FF] to-[#00A0E9] pb-20 pt-10 md:pt-14 shadow-xl">
           {/* 流れるグラデーションオーバーレイ */}
@@ -3142,7 +3142,7 @@ export default function TalkLensPage() {
   return (
     <>
       <GlassHeader />
-      <main className="min-h-screen" style={{ backgroundColor: '#F0F8FF' }}>
+      <main className="min-h-screen" style={{ backgroundColor: '#FFF0F5' }}>
         {isAnalyzing && <AnalyzingOverlay />}
         <HeroSection onFileSelect={handleAnalyzeFile} isAnalyzing={isAnalyzing} />
         <CompatibilityTypesSection />

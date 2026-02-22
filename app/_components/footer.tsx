@@ -81,7 +81,7 @@ export function Footer() {
 
   return (
     <>
-      <footer className="py-12 mt-12 border-t border-slate-100" style={{ backgroundColor: '#F5F9FB' }}>
+      <footer className="py-12 mt-12 border-t border-slate-100" style={{ backgroundColor: '#FFF0F5' }}>
         <div className="max-w-6xl mx-auto px-4">
           {/* Links */}
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-sm font-medium text-slate-600">
