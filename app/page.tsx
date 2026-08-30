@@ -438,7 +438,8 @@ export default function TalkLensPage() {
   const [showAdminStats, setShowAdminStats] = useState(false);
   const [analysisCount, setAnalysisCount] = useState<number | null>(null);
   const [dailyData, setDailyData] = useState<{ date: string; count: number }[]>([]);
-  const [mau, setMau] = useState<number | null>(null);
+  const [last30DaysCount, setLast30DaysCount] = useState<number | null>(null);
+  const [statsError, setStatsError] = useState<string | null>(null);
   const { toast } = useToast();
 
   // 隠しコマンド（Ctrl+Shift+A）で分析回数を表示
@@ -448,28 +449,30 @@ export default function TalkLensPage() {
         e.preventDefault();
         console.log('隠しコマンド検出: Ctrl+Shift+A');
         setShowAdminStats(true);
+        setAnalysisCount(null);
+        setDailyData([]);
+        setLast30DaysCount(null);
+        setStatsError(null);
         try {
-          const totalResponse = await fetch('/api/analytics/count');
-          if (totalResponse.ok) {
-            const totalData = await totalResponse.json();
-            setAnalysisCount(totalData.count);
-          } else {
-            setAnalysisCount(0);
+          const [totalResponse, dailyResponse] = await Promise.all([
+            fetch('/api/analytics/count'),
+            fetch('/api/analytics/count?daily=true'),
+          ]);
+
+          if (!totalResponse.ok || !dailyResponse.ok) {
+            throw new Error(`Stats API failed: total=${totalResponse.status}, daily=${dailyResponse.status}`);
           }
-          const dailyResponse = await fetch('/api/analytics/count?daily=true');
-          if (dailyResponse.ok) {
-            const dailyResult = await dailyResponse.json();
-            setDailyData(dailyResult.daily || []);
-            setMau(dailyResult.mau || 0);
-          } else {
-            setDailyData([]);
-            setMau(0);
-          }
+
+          const [totalData, dailyResult] = await Promise.all([
+            totalResponse.json(),
+            dailyResponse.json(),
+          ]);
+          setAnalysisCount(totalData.count);
+          setDailyData(dailyResult.daily || []);
+          setLast30DaysCount(dailyResult.last30DaysCount || 0);
         } catch (err) {
           console.error('Failed to fetch analysis data:', err);
-          setAnalysisCount(0);
-          setDailyData([]);
-          setMau(0);
+          setStatsError('統計データを取得できませんでした。時間をおいて再度お試しください。');
         }
       }
     };
@@ -2271,7 +2274,12 @@ export default function TalkLensPage() {
             <p className="text-white/90 text-sm">本番環境での分析実行回数</p>
           </div>
           <div className="p-8">
-            {/* 総計とMAU */}
+            {statsError && (
+              <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-center text-sm font-bold text-red-700">
+                {statsError}
+              </div>
+            )}
+            {/* 総計と過去30日間の分析回数 */}
             <div className="grid grid-cols-2 gap-4 mb-6">
               <div className="text-center p-4 bg-purple-50 rounded-xl">
                 <p className="text-sm text-slate-600 mb-2">総分析回数</p>
@@ -2280,9 +2288,9 @@ export default function TalkLensPage() {
                 </div>
               </div>
               <div className="text-center p-4 bg-pink-50 rounded-xl">
-                <p className="text-sm text-slate-600 mb-2">MAU（過去30日）</p>
+                <p className="text-sm text-slate-600 mb-2">過去30日間の分析回数</p>
                 <div className="text-3xl font-black text-pink-600">
-                  {mau !== null ? mau.toLocaleString() : '---'}
+                  {last30DaysCount !== null ? last30DaysCount.toLocaleString() : '---'}
                 </div>
               </div>
             </div>

@@ -2,14 +2,24 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+function createServerSupabaseClient() {
+  if (!supabaseUrl || !supabaseServiceRoleKey) return null;
+
+  return createClient(supabaseUrl, supabaseServiceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+}
 
 export async function POST(request: NextRequest) {
-  if (!supabaseUrl || !supabaseAnonKey) {
+  const supabase = createServerSupabaseClient();
+  if (!supabase) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   }
-
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
   try {
     // analysis_countテーブルから現在のカウントを取得してインクリメント
@@ -56,11 +66,10 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  if (!supabaseUrl || !supabaseAnonKey) {
+  const supabase = createServerSupabaseClient();
+  if (!supabase) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   }
-
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
   try {
     const { searchParams } = new URL(request.url);
@@ -97,13 +106,11 @@ export async function GET(request: NextRequest) {
         });
       }
 
-      // MAU（過去30日間のユニークユーザー数）を計算
-      // ここでは簡易的に、過去30日間の合計分析回数を使用
-      const mau = dailyData.reduce((sum, d) => sum + d.count, 0);
+      const last30DaysCount = dailyData.reduce((sum, d) => sum + d.count, 0);
 
       return NextResponse.json({ 
         daily: dailyData,
-        mau: mau
+        last30DaysCount
       });
     } else {
       // 総計のみ取得
