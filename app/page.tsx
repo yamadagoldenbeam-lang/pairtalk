@@ -19,7 +19,6 @@ import { ArrowLeft, MessageCircle, Clock, Zap, Smile, BarChart3, TrendingUp, Tro
 import { cn } from "./_lib/utils";
 import { MascotIcon } from "./_components/mascot-icon";
 import { WritterLoginModal } from "./_components/writter-login-modal";
-import { NextActionDuel } from "./_components/NextActionDuel";
 
 interface Message {
   date: Date;
@@ -3148,7 +3147,6 @@ export default function TalkLensPage() {
         <CompatibilityTypesSection />
         <HowToSection />
         <FeaturesSection />
-        <NextActionDuel />
         <Footer />
       </main>
       <AdminStatsModal />
